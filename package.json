@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/vigour-io/vigour-native-plugin",
   "dependencies": {
-    "vigour-native": "git+ssh://git@github.com:vigour-io/vigour-native.git#shawn-dev"
+    "vigour-native": "git+ssh://git@github.com:vigour-io/vigour-native.git"
   },
   "devDependencies": {
     "npm": "^2.7.6",
