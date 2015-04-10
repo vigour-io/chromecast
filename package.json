@@ -4,7 +4,7 @@
   "description": "Example of a vigour-native plugin. Make new plugins by forking this repo.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "test/index.js",
     "build": "build",
     "build-android": "build android",
     "build-ios": "build ios"
@@ -28,6 +28,7 @@
     "vigour-native": "git+ssh://git@github.com:vigour-io/vigour-native.git#shawn-dev"
   },
   "devDependencies": {
-    "npm": "^2.7.5"
+    "npm": "^2.7.5",
+    "npmlog": "^1.2.0"
   }
 }
