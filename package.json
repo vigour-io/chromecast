@@ -1,0 +1,24 @@
+{
+  "name": "vigour-native-plugin",
+  "version": "1.0.0",
+  "description": "Example of a vigour-native plugin. Make new plugins by forking this repo.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vigour-io/vigour-native-plugin.git"
+  },
+  "keywords": [
+    "vigour",
+    "native",
+    "plugin"
+  ],
+  "author": "Shawn Inder <shawn@vigour.io>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vigour-io/vigour-native-plugin/issues"
+  },
+  "homepage": "https://github.com/vigour-io/vigour-native-plugin"
+}
