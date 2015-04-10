@@ -4,10 +4,7 @@
   "description": "Example of a vigour-native plugin. Make new plugins by forking this repo.",
   "main": "index.js",
   "scripts": {
-    "test": "test/index.js",
-    "buildy": "build",
-    "build-android": "build android",
-    "build-ios": "build ios"
+    "test": "test/index.js"
   },
   "repository": {
     "type": "git",
