@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "description": "Example of a vigour-native plugin. Make new plugins by forking this repo.",
   "main": "index.js",
-  "bin": {
-    "build": "bin.js"
-  },
   "scripts": {
-    "build": "echo build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "build",
+    "build-android": "build android",
+    "build-ios": "build ios"
   },
   "repository": {
     "type": "git",
@@ -24,5 +23,11 @@
   "bugs": {
     "url": "https://github.com/vigour-io/vigour-native-plugin/issues"
   },
-  "homepage": "https://github.com/vigour-io/vigour-native-plugin"
+  "homepage": "https://github.com/vigour-io/vigour-native-plugin",
+  "dependencies": {
+    "vigour-native": "git+ssh://git@github.com:vigour-io/vigour-native.git#shawn-dev"
+  },
+  "devDependencies": {
+    "npm": "^2.7.5"
+  }
 }
