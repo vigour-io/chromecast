@@ -4,7 +4,7 @@
   "description": "Example of a vigour-native plugin. Make new plugins by forking this repo.",
   "main": "index.js",
   "bin": {
-    "build": "./bin.js"
+    "build": "bin.js"
   },
   "scripts": {
     "build": "echo build",
