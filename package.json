@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "test/index.js",
-    "build": "build",
+    "buildy": "build",
     "build-android": "build android",
     "build-ios": "build ios"
   },
