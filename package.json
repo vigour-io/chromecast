@@ -27,5 +27,8 @@
   "devDependencies": {
     "npm": "^2.7.6",
     "npmlog": "^1.2.0"
+  },
+  "vigour": {
+    "plugin": true
   }
 }
