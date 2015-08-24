@@ -1,5 +1,5 @@
 {
-  "name": "Plugin Base",
+  "name": "vigour-native-plugin",
   "version": "1.0.0",
   "description": "Example of a vigour-native plugin. Make new plugins by forking this repo.",
   "main": "index.js",
