@@ -1,5 +1,5 @@
 {
-  "name": "vigour-native-plugin",
+  "name": "Plugin Base",
   "version": "1.0.0",
   "description": "Example of a vigour-native plugin. Make new plugins by forking this repo.",
   "main": "index.js",
@@ -29,6 +29,8 @@
     "npmlog": "^1.2.0"
   },
   "vigour": {
-    "plugin": true
+    "plugin": {
+      "id": "vigour-native-plugin"
+    }
   }
 }
