@@ -4,22 +4,29 @@ var pluginId = pkg.vigour.plugin.id
 
 module.exports = exports = {}
 
-exports.bridgeCall = function (fn, opts, cb) {
+exports.bridgeSend = function (fn, opts, cb) {
   if (!cb) {
     cb = opts
     opts = null
   }
-  bridge.call(pluginId, fn, opts, cb)
+  bridge.send(pluginId, fn, opts, cb)
 }
 
 // TODO Everything above this line feels like boilerplate
 // and should probably be moved to lib/bridge somehow
 
+bridge.on('ready', function (pluginId) {
+  if (!pluginId) {
+    // Everything is ready
+  } else {
+    // plugin with id pluginId is ready
+  }
+})
+
 // If plugin requires initialization on the native side
-exports.bridgeCall('init', function (err) {
+exports.bridgeSend('init', function (err) {
   if (!err) {
-    // Native part is ready
-    exports.init()
+    // Native part is ready and initialized
   } else {
     throw err
   }
@@ -30,5 +37,5 @@ exports.init = function () {
 }
 
 exports.act = function (opts, cb) {
-  exports.bridgeCall('act', opts, cb)
+  exports.bridgeSend('act', opts, cb)
 }
