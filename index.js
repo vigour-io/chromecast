@@ -5,7 +5,7 @@ var pluginId = pkg.vigour.plugin.id
 module.exports = exports = {}
 
 // If plugin requires initialization on the native side
-bridge.call(pluginId, 'init', function (err) {
+bridge.send(pluginId, 'init', function (err) {
   if (!err) {
     // Native part is ready
     exports.init()
@@ -19,5 +19,5 @@ exports.init = function () {
 }
 
 exports.act = function (opts, cb) {
-  bridge.call(pluginId, 'act', opts, cb)
+  bridge.send(pluginId, 'act', opts, cb)
 }
