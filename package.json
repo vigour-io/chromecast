@@ -30,7 +30,12 @@
   },
   "vigour": {
     "plugin": {
-      "id": "vigour-native-plugin"
+      "id": "vigour-native-plugin",
+      "android": {
+        "skipInstall": true,
+        "instantiation": "",
+        "className": ""
+      }
     }
   }
 }
