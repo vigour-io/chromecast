@@ -13,7 +13,8 @@ describe('plugin', function () {
       var spy = sinon.spy()
       plugin.on('ready', spy)
       // Let's fake a ready event for this plugin
-      window.vigour.native.bridge.ready(null, 'message', plugin.key)
+      window.vigour.native.bridge.ready(null, 'message 1', plugin.key)
+      window.vigour.native.bridge.ready(null, 'message 2')
       expect(spy).calledOnce
     })
 
@@ -30,7 +31,8 @@ describe('plugin', function () {
       var spy = sinon.spy()
       plugin.on('receive', spy)
       // Let's fake a ready event for this plugin
-      window.vigour.native.bridge.receive(null, 'message', plugin.key)
+      window.vigour.native.bridge.receive(null, 'message 1', plugin.key)
+      window.vigour.native.bridge.receive(null, 'message 2')
       expect(spy).calledOnce
     })
   })
