@@ -34,8 +34,7 @@
     "vigour-native": "git+ssh://git@github.com:vigour-io/vigour-native.git"
   },
   "devDependencies": {
-    "gaston": "^0.14.0",
-    "npmlog": "^1.2.0"
+    "gaston": "^0.14.0"
   },
   "vigour": {
     "plugin": {
