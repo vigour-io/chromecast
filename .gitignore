@@ -1,3 +1,8 @@
 node_modules
 npm-debug.log
 .DS_STORE
+bundle.js
+mocha.css
+mocha.js
+test-runner.html
+bundles

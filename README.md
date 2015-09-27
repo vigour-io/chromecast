@@ -1,12 +1,12 @@
-# vigour-native-plugin
-Fork this repo to make vigour-native plugins.
+# plugin
+Fork this repo to make vigour-style native plugins.
 
-##Install
-`npm i vigour-native-statusBar`
+## Install
+Add `"plugin": "git+ssh://git@github.com:vigour-io/plugin.git#master"` to the dependencies in your app's pakage.json, then run `npm update plugin`
+Coming soon: `npm i vigour-plugin`
 
-##Usage
-See [test/index.js](test/index.js)
+## Usage
+See [tests](test)
 
-##Building a set of native apps from your codebase
-- `npm run build`
-- `npm run build -- ios android`
+## Building native apps
+See [wrapper](http://github.com/vigour-io/vigour-native)

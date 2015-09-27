@@ -1,41 +1,51 @@
 {
-  "name": "vigour-native-plugin",
+  "name": "plugin",
   "version": "1.0.0",
-  "description": "Example of a vigour-native plugin. Make new plugins by forking this repo.",
-  "main": "index.js",
+  "description": "Example of a vigour-style native plugin. Make new plugins by forking this repo.",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "test/index.js"
+    "start": "./node_modules/.bin/gaston",
+    "test": "./node_modules/.bin/gaston test browser"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vigour-io/vigour-native-plugin.git"
+    "url": "https://github.com/vigour-io/plugin.git"
   },
   "keywords": [
     "vigour",
+    "wrapper",
     "native",
     "plugin"
   ],
   "author": "Shawn Inder <shawn@vigour.io>",
+  "contributors": [
+    "Shawn Inder <shawn@vigour.io>"
+  ],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/vigour-io/vigour-native-plugin/issues"
+    "url": "https://github.com/vigour-io/plugin/issues"
   },
-  "homepage": "https://github.com/vigour-io/vigour-native-plugin",
+  "homepage": "https://github.com/vigour-io/plugin",
+  "engines": {
+    "node": ">=0.12"
+  },
   "dependencies": {
     "vigour-native": "git+ssh://git@github.com:vigour-io/vigour-native.git"
   },
   "devDependencies": {
-    "npm": "^2.7.6",
+    "gaston": "^0.14.0",
     "npmlog": "^1.2.0"
   },
   "vigour": {
     "plugin": {
-      "id": "vigour-native-plugin",
       "android": {
         "skipInstall": true,
-        "instantiation": "",
-        "className": ""
+        "className": "io.vigour.plugin",
+        "instantiation": "new Plugin(this, webview)"
       }
     }
+  },
+  "standard": {
+    "globals": [ "describe", "it", "expect", "before", "after", "beforeEach", "afterEach", "sinon" ]
   }
 }
