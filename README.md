@@ -1,9 +1,9 @@
-# plugin
-Fork this repo to make vigour-style native plugins.
+# chromecast
+Everything needed for Chromecast sender apps
 
 ## Install
-Add `"plugin": "git+ssh://git@github.com:vigour-io/plugin.git#master"` to the dependencies in your app's pakage.json, then run `npm update plugin`
-Coming soon: `npm i vigour-plugin`
+Add `"chromecast": "git+ssh://git@github.com:vigour-io/chromecast.git#master"` to the dependencies in your app's pakage.json, then run `npm update chromecast`
+Coming soon: `npm i vigour-chromecast`
 
 ## Updates via upstream remote
 

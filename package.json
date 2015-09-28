@@ -1,7 +1,7 @@
 {
-  "name": "plugin",
+  "name": "chromecast",
   "version": "1.0.0",
-  "description": "Example of a vigour-style native plugin. Make new plugins by forking this repo.",
+  "description": "Everything needed for Chromecast sender apps",
   "main": "lib/index.js",
   "scripts": {
     "start": "./node_modules/.bin/gaston",
@@ -9,23 +9,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vigour-io/plugin.git"
+    "url": "https://github.com/vigour-io/chromecast.git"
   },
   "keywords": [
     "vigour",
     "wrapper",
     "native",
-    "plugin"
+    "plugin",
+    "chromecast"
   ],
-  "author": "Shawn Inder <shawn@vigour.io>",
+  "author": "Vigour",
   "contributors": [
     "Shawn Inder <shawn@vigour.io>"
   ],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/vigour-io/plugin/issues"
+    "url": "https://github.com/vigour-io/chromecast/issues"
   },
-  "homepage": "https://github.com/vigour-io/plugin",
+  "homepage": "https://github.com/vigour-io/chromecast",
   "engines": {
     "node": ">=0.12"
   },
@@ -39,8 +40,8 @@
     "plugin": {
       "android": {
         "skipInstall": true,
-        "className": "io.vigour.plugin",
-        "instantiation": "new Plugin(this, webview)"
+        "className": "io.vigour.chromecast",
+        "instantiation": "new Chromecast(this, webview)"
       }
     }
   },
