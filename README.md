@@ -5,6 +5,11 @@ Fork this repo to make vigour-style native plugins.
 Add `"plugin": "git+ssh://git@github.com:vigour-io/plugin.git#master"` to the dependencies in your app's pakage.json, then run `npm update plugin`
 Coming soon: `npm i vigour-plugin`
 
+## Updates via upstream remote
+
+- `git remote add upstream git@github.com:vigour-io/plugin.git`
+- `git pull upstream develop`
+
 ## Usage
 See [tests](test)
 
