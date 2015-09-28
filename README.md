@@ -7,8 +7,8 @@ Coming soon: `npm i vigour-plugin`
 
 ## Updates via upstream remote
 
-- `git remote add upstream git@github.com:vigour-io/plugin.git`
-- `git pull upstream develop`
+- `git remote add skeleton git@github.com:vigour-io/plugin.git`
+- `git pull skeleton develop`
 
 ## Usage
 See [tests](test)
