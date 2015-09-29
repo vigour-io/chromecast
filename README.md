@@ -6,7 +6,6 @@ Add `"env": "git+ssh://git@github.com:vigour-io/env.git#master"` to the dependen
 Coming soon: `npm i vigour-env`
 
 ## Updates via upstream remote
-
 - `git remote add skeleton git@github.com:vigour-io/plugin.git`
 - `git pull skeleton develop`
 
