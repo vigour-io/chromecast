@@ -19,87 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Test the plugin with these buttons"
+            android:text="Add UI to test the plugin"
             android:textSize="18sp"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="hidden"
-            android:text="hidden"
-            />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="top"
-            android:text="top"
-            />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="over"
-            android:text="over"
-            />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="8dp"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="black"
-            android:text="black"
-            />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="white"
-            android:text="white"
-            />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="purple"
-            android:text="purple"
-            />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="lime"
-            android:text="lime"
-            />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="8dp"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="alpha0"
-            android:text="alpha: 0"
-            />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="alpha1"
-            android:text="alpha: 1"
-            />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="alpha04"
-            android:text="alpha: 0.4"
-            />
-
 
     </LinearLayout>
 </ScrollView>
