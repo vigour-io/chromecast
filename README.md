@@ -1,12 +1,17 @@
 # vigour-native-plugin
-Fork this repo to make vigour-native plugins.
+
+##Create
+- Fork this repo to make vigour-native plugins.
+- choose a <plugin-name>
+- android:
+  - set artifactId in native/android/src/lib/build.gradle to <plugin-name>
+  - create lib functionality and make the android example work
 
 ##Install
-`npm i vigour-native-statusBar`
+`npm i <plugin-name>`
 
 ##Usage
 See [test/index.js](test/index.js)
 
 ##Building a set of native apps from your codebase
-- `npm run build`
-- `npm run build -- ios android`
+- See [vigour-native](https://github.com/vigour-io/vigour-native)
