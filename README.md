@@ -1,4 +1,4 @@
-# vigour-native-plugin
+# plugin
 
 ##Create
 - Fork this repo to make vigour-native plugins.
@@ -8,10 +8,15 @@
   - create lib functionality and make the android example work
 
 ##Install
-`npm i <plugin-name>`
+Add `"<plugin-name>": "git+ssh://git@github.com:vigour-io/<plugin-name>.git#master"` to the dependencies in your app's pakage.json, then run `npm update <plugin-name>`
+Coming soon: `npm i vigour-plugin`
 
-##Usage
-See [test/index.js](test/index.js)
+## Updates via upstream remote
+- `git remote add skeleton git@github.com:vigour-io/plugin.git`
+- `git pull skeleton develop`
 
-##Building a set of native apps from your codebase
-- See [vigour-native](https://github.com/vigour-io/vigour-native)
+## Usage
+See [tests](test)
+
+## Building native apps
+See [wrapper](http://github.com/vigour-io/vigour-native)
