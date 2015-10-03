@@ -1,7 +1,7 @@
 {
-  "name": "env",
+  "name": "plugin",
   "version": "1.0.0",
-  "description": "Provides info about the device, platform and build",
+  "description": "Example of a vigour-style native plugin. Make new plugins by forking this repo.",
   "main": "lib/index.js",
   "scripts": {
     "start": "./node_modules/.bin/gaston",
@@ -9,14 +9,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vigour-io/env.git"
+    "url": "https://github.com/vigour-io/plugin.git"
   },
   "keywords": [
     "vigour",
     "wrapper",
     "native",
-    "plugin",
-    "env"
+    "plugin"
   ],
   "author": "Shawn Inder <shawn@vigour.io>",
   "contributors": [
@@ -24,9 +23,9 @@
   ],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/vigour-io/env/issues"
+    "url": "https://github.com/vigour-io/plugin/issues"
   },
-  "homepage": "https://github.com/vigour-io/env",
+  "homepage": "https://github.com/vigour-io/plugin",
   "engines": {
     "node": ">=0.12"
   },
@@ -40,8 +39,8 @@
     "plugin": {
       "android": {
         "skipInstall": true,
-        "className": "io.vigour.env",
-        "instantiation": "new Env(this, webview)"
+        "className": "io.vigour.plugin",
+        "instantiation": "new Plugin(this, webview)"
       }
     }
   },
