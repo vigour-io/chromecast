@@ -17,9 +17,11 @@
     "native",
     "plugin"
   ],
-  "author": "Shawn Inder <shawn@vigour.io>",
+  "author": "Vigour",
   "contributors": [
-    "Shawn Inder <shawn@vigour.io>"
+    "Shawn Inder <shawn@vigour.io>",
+    "Michiel Van Liempt <michiel@vigour.io>",
+    "Alexander van de Werff <alex@vigour.io>"
   ],
   "license": "ISC",
   "bugs": {
