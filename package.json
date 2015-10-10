@@ -4,8 +4,8 @@
   "description": "Example of a vigour-style native plugin. Make new plugins by forking this repo.",
   "main": "lib/index.js",
   "scripts": {
-    "start": "./node_modules/.bin/gaston",
-    "test": "./node_modules/.bin/gaston test browser"
+    "start": "gaston",
+    "test": "gaston test"
   },
   "repository": {
     "type": "git",
