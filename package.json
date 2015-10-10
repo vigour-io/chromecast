@@ -36,9 +36,6 @@
     "promise": "^7.0.4",
     "vigour-native": "git+ssh://git@github.com:vigour-io/vigour-native.git"
   },
-  "devDependencies": {
-    "gaston": "^0.14.0"
-  },
   "vigour": {
     "plugin": {
       "android": {
