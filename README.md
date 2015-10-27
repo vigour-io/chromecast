@@ -28,10 +28,11 @@ Fork this repo to make vigour-native plugins.
     * contributors
 - In the `native` directory
   + Rename `native/android/plugin`
-  + Set `artifactId` in `native/android/src/lib/build.gradle` to `<plugin-name>`
+  + Update values in `native/android/<plugin-name>/lib/build.gradle`
   + Change the package names in the android source
   + Change the package in the libs AndroidManifest.xml
   + Create lib functionality and make the android example work
+  + publish the android lib to jcenter, see [instructions](CONTRIBUTING.md)
 
 
 ## Install

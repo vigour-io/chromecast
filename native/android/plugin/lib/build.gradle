@@ -8,7 +8,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 21
         versionCode 1
-        versionName "1.0"
+        versionName "0.1"
     }
     buildTypes {
         release {
@@ -16,26 +16,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+    }
 }
 
 dependencies {
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile 'io.vigour:plugin-core:0.4.1'
     compile 'com.android.support:appcompat-v7:21.0.3'
-}
-
-apply plugin: 'maven'
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: mavenLocal().url)
-            pom.version = '0.2-SNAPSHOT'
-            pom.groupId = 'io.vigour.plugin'
-            pom.artifactId = 'plugin'
-            // change the artifactId
-        }
-    }
 }
 
 task androidJavadocs(type: Javadoc) {
@@ -56,3 +45,30 @@ artifacts {
     archives androidSourcesJar
     archives androidJavadocsJar
 }
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = '...'
+
+    publishedGroupId = 'io.vigour'
+    libraryName = 'Plugin Name'
+    artifact = 'plugin-name'
+
+    libraryDescription = 'plugin description'
+
+    siteUrl = 'https://github.com/vigour-io/plugin'
+    gitUrl = 'https://github.com/vigour-io/plugin.git'
+
+    libraryVersion = '0.1'
+
+    developerId = 'vigour'
+    developerName = 'Michiel van Liempt'
+    developerEmail = 'dev@vigour.io'
+
+    licenseName = 'The MIT License'
+    licenseUrl = 'http://opensource.org/licenses/mit-license.php'
+    allLicenses = ["MIT"]
+}
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
