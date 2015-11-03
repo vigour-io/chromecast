@@ -1,6 +1,6 @@
 # plugin
 
-Fork this repo to make vigour-native plugins.
+Fork this repo to make vigour-wrapper plugins.
 
 
 ### Creating plugins from this skeleton

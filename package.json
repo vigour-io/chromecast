@@ -1,5 +1,5 @@
 {
-  "name": "plugin",
+  "name": "vigour-plugin",
   "version": "1.0.0",
   "description": "Example of a vigour-style native plugin. Make new plugins by forking this repo.",
   "main": "lib/index.js",
@@ -34,7 +34,7 @@
   "dependencies": {
     "npmlog": "^1.2.1",
     "promise": "^7.0.4",
-    "vigour-native": "git+ssh://git@github.com:vigour-io/vigour-native.git"
+    "vigour-wrapper": "0.0.5"
   },
   "vigour": {
     "plugin": {
