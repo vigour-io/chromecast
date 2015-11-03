@@ -1,6 +1,6 @@
 {
   "name": "vigour-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Example of a vigour-style native plugin. Make new plugins by forking this repo.",
   "main": "lib/index.js",
   "scripts": {
