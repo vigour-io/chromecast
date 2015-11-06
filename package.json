@@ -25,9 +25,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vigour-io/share/issues"
+    "url": "https://github.com/vigour-io/plugin/issues"
   },
-  "homepage": "https://github.com/vigour-io/share",
+  "homepage": "https://github.com/vigour-io/plugin",
   "engines": {
     "node": ">=4.1.2"
   },
