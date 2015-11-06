@@ -25,11 +25,11 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vigour-io/plugin/issues"
+    "url": "https://github.com/vigour-io/share/issues"
   },
-  "homepage": "https://github.com/vigour-io/plugin",
+  "homepage": "https://github.com/vigour-io/share",
   "engines": {
-    "node": ">=0.12"
+    "node": ">=4.1.2"
   },
   "dependencies": {
     "npmlog": "^1.2.1",
