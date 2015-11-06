@@ -36,9 +36,7 @@ Fork this repo to make vigour-wrapper plugins.
 
 
 ## Install
-- Add `"plugin": "git+ssh://git@github.com:vigour-io/plugin.git#master"` to the dependencies in [pakage.json](pakage.json)
-- Run `npm update plugin`
-- *Coming soon*: `npm i vigour-plugin`
+- `npm i vigour-plugin`
 
 ## Updates via upstream remote
 - `git remote add skeleton git@github.com:vigour-io/plugin.git`
