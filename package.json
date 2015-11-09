@@ -1,5 +1,5 @@
 {
-  "name": "chromecast",
+  "name": "vigour-chromecast",
   "version": "1.0.0",
   "description": "Everything needed for Chromecast sender apps",
   "main": "lib/index.js",
@@ -31,7 +31,7 @@
     "node": ">=0.12"
   },
   "dependencies": {
-    "vigour-native": "git+ssh://git@github.com:vigour-io/vigour-native.git"
+    "vigour-wrapper": "^1.0.0"
   },
   "devDependencies": {
     "gaston": "^0.14.0"
