@@ -34,7 +34,7 @@
   "dependencies": {
     "npmlog": "^1.2.1",
     "promise": "^7.0.4",
-    "vigour-wrapper": "0.0.5"
+    "vigour-wrapper": "^1.0.0"
   },
   "vigour": {
     "plugin": {
