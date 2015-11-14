@@ -31,7 +31,8 @@
     "node": ">=0.12"
   },
   "dependencies": {
-    "vigour-wrapper": "*"
+    "vigour-wrapper": "*",
+    "vigour-ua": "*"
   },
   "devDependencies": {
     "gaston": "^0.14.0"
