@@ -48,6 +48,7 @@
   },
   "standard": {
     "globals": [
+      "session",
       "chrome",
       "describe",
       "it",
