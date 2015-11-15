@@ -1,4 +1,4 @@
-var Plugin = require('vigour-native/lib/bridge/Plugin')
+var Plugin = require('vigour-wrapper/lib/bridge/Plugin')
 var name = require('../../package.json').name
 var plugin
 
