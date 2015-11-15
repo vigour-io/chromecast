@@ -1,5 +1,5 @@
 'use strict'
-var devBridge = require('vigour-wrapper/dev/bridgemock')
+var devBridge = require('vigour-wrapper/dev/bridge')
 var nativeSender = require('../../lib/native')
 var Plugin = require('vigour-wrapper/lib/bridge/plugin')
 
