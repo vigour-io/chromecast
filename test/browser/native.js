@@ -5,12 +5,16 @@ var Plugin = require('vigour-wrapper/lib/bridge/plugin')
 
 var ChromeCastPlugin = new Plugin({
   key: 'ChromeCast',
-  session: false,
+  session: {
+    val: false,
+    id: false
+  },
   pluginReady: false,
-  inject: nativeSender
+  inject: nativeSender,
+  devices: false
 }).Constructor
 
-describe('Testing ChromeCast Native Plugin', function () {
+describe('Native Plugin', function () {
   var plugin
   var bridge = window.vigour.native.bridge
 
@@ -19,12 +23,10 @@ describe('Testing ChromeCast Native Plugin', function () {
       key: 'ChromeCast',
       bridge: {
         useVal: devBridge
-      },
-      on: {
-        loaded () {
-          done()
-        }
       }
+    })
+    plugin.on('ready', () => {
+      done()
     })
     plugin.val = 'myAppId'
   })
@@ -37,28 +39,28 @@ describe('Testing ChromeCast Native Plugin', function () {
 
     it('should add devices passed through the \'join\' event', function () {
       // emulate device join
-      bridge.receive(null, {type: 'join', data: testDevice}, 'ChromeCast')
+      bridge.receive(null, {type: 'deviceJoined', data: testDevice}, 'ChromeCast')
       expect(plugin.devices[testDevice.id]).to.exists
     })
 
     it('should remove devices passed through the \'leave\' event', function () {
       // emulate device leave
-      bridge.receive(null, {type: 'leave', data: testDevice}, 'ChromeCast')
+      bridge.receive(null, {type: 'deviceLeft', data: testDevice}, 'ChromeCast')
       expect(plugin.devices[testDevice.id]).to.not.exists
     })
 
-    it('should be able to start casting for a device', function (done) {
+    it('should be able to start casting to a device', function (done) {
       // fake device join
-      bridge.receive(null, {type: 'join', data: testDevice}, 'ChromeCast')
+      bridge.receive(null, {type: 'deviceJoined', data: testDevice}, 'ChromeCast')
       // call startCasting for testDevice
       var device = plugin.devices[testDevice.id]
+      expect(device).to.be.ok
       plugin.startCasting(device)
 
       expect(plugin.session.val).to.equal(device)
       // session.val === device >> "connecting OR connected" to device
-      expect(plugin.session).to.not.have.property('id')
+      expect(plugin.session.id.val).to.equal(false)
       // state is now "connecting" because no session.id yet
-
       // wait for 'connected' event
       setTimeout(() => {
         // expect 'connected' event to have fired 1 time
