@@ -2,8 +2,7 @@
 Everything needed for Chromecast sender apps
 
 ## Install
-Add `"chromecast": "git+ssh://git@github.com:vigour-io/chromecast.git#master"` to the dependencies in your app's pakage.json, then run `npm update chromecast`
-Coming soon: `npm i vigour-chromecast`
+`npm i vigour-chromecast`
 
 ## Updates via upstream remote
 
