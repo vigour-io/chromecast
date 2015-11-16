@@ -62,24 +62,21 @@ var app = new Element({
   }
 })
 
-chr.on('loaded', () => {
-  console.log('loaded')
+chr.on('ready', () => {
+  console.log('ready')
   console.log(arguments)
 })
-chr.on('receiver', () => {
-  console.log('receiver')
+chr.devices.on('value', () => {
+  console.log('devices')
   console.log(arguments)
 })
-chr.on('noreceiver', () => {
-  console.log('noreceiver')
+
+chr.on('stopped-casting', () => {
+  console.log('stopped-casting')
   console.log(arguments)
 })
-chr.on('session', () => {
-  console.log('session')
-  console.log(arguments)
-})
-chr.on('start', () => {
-  console.log('start')
+chr.on('started-casting', () => {
+  console.log('started-casting')
   console.log(arguments)
 })
 chr.on('error', (err) => {
