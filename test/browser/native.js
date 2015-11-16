@@ -1,5 +1,5 @@
 'use strict'
-var devBridge = require('vigour-wrapper/dev/bridge')
+var mockBridge = require('../../dev/bridge')
 var nativeSender = require('../../lib/native')
 var Plugin = require('vigour-wrapper/lib/bridge/plugin')
 
@@ -22,7 +22,7 @@ describe('Native Plugin', function () {
     plugin = new ChromeCastPlugin({
       key: 'ChromeCast',
       bridge: {
-        useVal: devBridge
+        useVal: mockBridge
       }
     })
     plugin.on('ready', () => {
