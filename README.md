@@ -41,7 +41,7 @@ chr.on('ready', () => {
   assert.equal(chr.pluginReady.val, true)
 })
 // Emitted when started casting on a session
-chr.on('started-casting', () => {
+chr.on('startedCasting', () => {
   // web
   assert.equal(chr.session.val, true)
   // native
@@ -50,7 +50,7 @@ chr.on('started-casting', () => {
   assert.ok(chr.session.id)
 })
 // Emitted when stopped casting on a session
-chr.on('stopped-casting', () => {
+chr.on('stoppedCasting', () => {
   // web && native
   assert.equal(chr.session.val, false)
   assert.equal(chr.session.id, false)
