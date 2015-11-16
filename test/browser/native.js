@@ -10,7 +10,7 @@ var ChromeCastPlugin = new Plugin({
   inject: nativeSender
 }).Constructor
 
-describe('Testing ChromeCast Native Plugin', function () {
+describe('Native Plugin', function () {
   var plugin
   var bridge = window.vigour.native.bridge
 
@@ -21,7 +21,7 @@ describe('Testing ChromeCast Native Plugin', function () {
         useVal: devBridge
       },
       on: {
-        loaded () {
+        ready () {
           done()
         }
       }
@@ -47,18 +47,26 @@ describe('Testing ChromeCast Native Plugin', function () {
       expect(plugin.devices[testDevice.id]).to.not.exists
     })
 
-    it('should be able to start casting for a device', function (done) {
+    it('should be able to start casting to a device', function (done) {
       // fake device join
-      bridge.receive(null, {type: 'join', data: testDevice}, 'ChromeCast')
+      bridge.receive(null, {type: 'deviceJoined', data: testDevice}, 'ChromeCast')
       // call startCasting for testDevice
+      console.log('burp?', testDevice.id)
       var device = plugin.devices[testDevice.id]
+      expect(device).to.be.ok
+      console.log('ok startcasting', device)
       plugin.startCasting(device)
+
+      console.log('lala')
 
       expect(plugin.session.val).to.equal(device)
       // session.val === device >> "connecting OR connected" to device
+
+      console.log('heyoo check property')
+
       expect(plugin.session).to.not.have.property('id')
       // state is now "connecting" because no session.id yet
-
+      console.log('lol how')
       // wait for 'connected' event
       setTimeout(() => {
         // expect 'connected' event to have fired 1 time
@@ -67,6 +75,7 @@ describe('Testing ChromeCast Native Plugin', function () {
           .which.has.property('val')
           .which.ok
         // state is now "connected" because I have a session id
+        console.log('wet')
         done()
       })
     })
