@@ -64,7 +64,7 @@ var app = new Element({
 
 chr.on('ready', () => {
   console.log('ready')
-  console.log(arguments)
+  console.log(chr.pluginReady.val)
 })
 chr.devices.on('value', () => {
   console.log('devices')

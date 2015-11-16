@@ -11,6 +11,39 @@ Coming soon: `npm i vigour-chromecast`
 - `git pull skeleton develop`
 
 ## Usage
+Basic example
+
+```js
+var chr = require('chromecast')
+var assert = require('assert')
+
+// Init with appId
+chr.val = 'appId'
+
+// Plugin is not ready yet
+assert.equal(chr.pluginReady.val, true)
+
+//////
+// Listening to events
+//////
+// Emitted on error
+chr.on('error', (err) => {})
+// Plugin init finished
+chr.on('ready', () => {
+  // plugin is now ready
+  assert.equal(chr.pluginReady.val, true)
+})
+// Emitted when started casting on a session
+chr.on('started-casting', () => {})
+// Emitted when stopped casting on a session
+chr.on('stopped-casting', () => {})
+//// Devices listeners
+// When a receiver (web) or a new device is available
+chr.devices.on('value', (device /*passed just on native*/) => {})
+//// Session listeners
+// New session
+
+```
 See [tests](test)
 
 ## Building native apps
