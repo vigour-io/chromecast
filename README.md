@@ -21,6 +21,11 @@ Fork this repo to make vigour-wrapper plugins.
     * homepage
     * vigour.plugin.android.className
     * vigour.plugin.android.instantiation
+    * vigour.native.platforms.ios.productName
+    * vigour.native.platforms.ios.organizationIdentifier
+    * vigour.native.platforms.android.productName
+    * vigour.native.platforms.android.applicationId
+
   + Update the following fields
     * description
     * keywords
@@ -41,6 +46,11 @@ Fork this repo to make vigour-wrapper plugins.
 ## Updates via upstream remote
 - `git remote add skeleton git@github.com:vigour-io/plugin.git`
 - `git pull skeleton develop`
+
+## Try it out
+- `npm run ios`
+- `npm run android`
+- `npm run all`
 
 ## Usage
 See [tests](test)
