@@ -5,7 +5,11 @@
   "main": "lib/index.js",
   "scripts": {
     "start": "gaston",
-    "test": "gaston test"
+    "test": "gaston test",
+    "build": "gaston build -s ./example/index.js -o ./ -i",
+    "ios": "npm run build && vNative build --native '{\"selectedPlatforms\":\"ios\"}'",
+    "android": "npm run build && vNative build --native '{\"selectedPlatforms\":\"android\"}'",
+    "all": "npm run build && vNative build"
   },
   "repository": {
     "type": "git",
@@ -42,6 +46,36 @@
         "skipInstall": true,
         "className": "io.vigour.plugin",
         "instantiation": "new Plugin(this, webview)"
+      }
+    },
+    "native": {
+      "platforms": {
+        "ios": {
+          "productName": "Plugin Example",
+          "organizationName": "Vigour",
+          "organizationIdentifier": "io.vigour.plugin",
+          "buildNumber": "1",
+          "appIndexPath": "build.html",
+          "NSAllowsArbitraryLoads": true,
+          "assets": {
+            "build.html": true,
+            "build.js": true,
+            "build.css": true
+          }
+        },
+        "android": {
+          "productName": "Plugin Example",
+          "applicationId": "io.vigour.plugin",
+          "appIndexPath": "build.html",
+          "keystoreFile": "example.keystore",
+          "keystorePassword": "shmexample",
+          "keystoreAlias": "blabla",
+          "assets": {
+            "build.html": true,
+            "build.js": true,
+            "build.css": true
+          }
+        }
       }
     }
   },
