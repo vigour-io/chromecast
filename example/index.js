@@ -9,17 +9,19 @@ Element.prototype.inject(
   require('vigour-element/lib/property/text')
 )
 
-var TopBar = new uikit.Topbar({
+var TopBar = new Element({
   css: 'topbar',
-  header: new uikit.Header[2]()
+  header: new Element({
+    node: 'h2'
+  })
 }).Constructor
 
 var InputGroup = new Element({
   css: 'input-group',
-  label: new uikit.Label({
+  label: new Element({
     node: 'span'
   }),
-  input: new uikit.Input({
+  input: new Element({
     node: 'input'
   })
 }).Constructor
@@ -41,7 +43,7 @@ var app = new Element({
     })
   }),
   controls: {
-    validate: new uikit.Button({
+    validate: new Element({
       node: 'button',
       text: 'Validate',
       on: {
@@ -50,7 +52,7 @@ var app = new Element({
         }
       }
     }),
-    reset: new uikit.Button({
+    reset: new Element({
       node: 'button',
       text: 'Reset',
       on: {

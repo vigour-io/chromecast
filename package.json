@@ -41,8 +41,7 @@
   },
   "devDependencies": {
     "bluebird": "^3.0.5",
-    "vigour-element": "0.0.3",
-    "vigour-uikit": "0.0.7"
+    "vigour-element": "0.0.3"
   },
   "vigour": {
     "plugin": {
