@@ -5,9 +5,13 @@ Everything needed for Chromecast sender apps
 `npm i vigour-chromecast`
 
 ## Updates via upstream remote
-
 - `git remote add skeleton git@github.com:vigour-io/plugin.git`
 - `git pull skeleton develop`
+
+## Try it out
+- `npm run ios`
+- `npm run android`
+- `npm run all`
 
 ## Usage
 Basic example
