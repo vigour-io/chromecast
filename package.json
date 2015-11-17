@@ -58,9 +58,9 @@
     "native": {
       "platforms": {
         "ios": {
-          "productName": "Plugin Example",
+          "productName": "Plugin Chromecast",
           "organizationName": "Vigour",
-          "organizationIdentifier": "io.vigour.plugin",
+          "organizationIdentifier": "io.vigour.chromecast",
           "buildNumber": "1",
           "appIndexPath": "build.html",
           "NSAllowsArbitraryLoads": true,
@@ -71,8 +71,8 @@
           }
         },
         "android": {
-          "productName": "Plugin Example",
-          "applicationId": "io.vigour.plugin",
+          "productName": "Chromecast Example",
+          "applicationId": "io.vigour.chromecast",
           "appIndexPath": "build.html",
           "keystoreFile": "example.keystore",
           "keystorePassword": "shmexample",
