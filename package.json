@@ -4,8 +4,8 @@
   "description": "Everything needed for Chromecast sender apps",
   "main": "lib/index.js",
   "scripts": {
-    "start": "./node_modules/.bin/gaston",
-    "test": "./node_modules/.bin/gaston test browser"
+    "start": "gaston",
+    "test": "gaston test -r browser"
   },
   "repository": {
     "type": "git",
@@ -20,15 +20,20 @@
   ],
   "author": "Vigour",
   "contributors": [
-    "Shawn Inder <shawn@vigour.io>"
+    "Shawn Inder <shawn@vigour.io>",
+    "Marcus Besjes <marcus@vigour.io>",
+    "Alexander van der Werff <alex@vigour.io>",
+    "Michiel van Liempt <michiel@vigour.io>",
+    "Renan Carvalho <renan@vigour.io>",
+    "Valerio Barrila <valerio@vigour.io>"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/vigour-io/chromecast/issues"
   },
   "homepage": "https://github.com/vigour-io/chromecast",
   "engines": {
-    "node": ">=0.12"
+    "node": ">=4"
   },
   "dependencies": {
     "vigour-wrapper": "*",
@@ -36,7 +41,6 @@
   },
   "devDependencies": {
     "bluebird": "^3.0.5",
-    "gaston": "^0.14.0",
     "vigour-element": "0.0.3",
     "vigour-uikit": "0.0.7"
   },
