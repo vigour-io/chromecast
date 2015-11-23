@@ -26,11 +26,9 @@ var mockMethods = {
     })
   }
 }
-bridge.set({
-  define: {
-    send: function (pluginId, fnName, opts, cb) {
-      return mockMethods[fnName](opts, cb)
-    }
+bridge.define({
+  send: function (pluginId, fnName, opts, cb) {
+    return mockMethods[fnName](opts, cb)
   }
 })
 
