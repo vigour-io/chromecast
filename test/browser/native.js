@@ -21,8 +21,10 @@ describe('Native Plugin', function () {
   it('should be able to create a plugin instance', function (done) {
     plugin = new ChromeCastPlugin({
       key: 'ChromeCast',
-      bridge: {
-        useVal: mockBridge
+      properties: {
+        bridge: {
+          val: mockBridge
+        }
       }
     })
     plugin.on('ready', () => {
