@@ -3,6 +3,7 @@ require('./style.less')
 
 var chr = require('../lib')
 var Element = require('vigour-element')
+
 Element.prototype.inject(
   require('vigour-element/lib/property/css'),
   require('vigour-element/lib/property/text')

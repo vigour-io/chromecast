@@ -1,11 +1,15 @@
 {
   "name": "vigour-chromecast",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Everything needed for Chromecast sender apps",
   "main": "lib/index.js",
   "scripts": {
     "start": "gaston",
-    "test": "gaston test -r browser"
+    "test": "gaston test -r browser",
+    "build": "gaston build -s ./example/index.js -o ./ -i",
+    "ios": "npm run build && vNative build --native '{\"selectedPlatforms\":\"ios\"}'",
+    "android": "npm run build && vNative build --native '{\"selectedPlatforms\":\"android\"}'",
+    "all": "npm run build && vNative build"
   },
   "repository": {
     "type": "git",
@@ -20,12 +24,12 @@
   ],
   "author": "Vigour",
   "contributors": [
-    "Shawn Inder <shawn@vigour.io>",
     "Marcus Besjes <marcus@vigour.io>",
     "Alexander van der Werff <alex@vigour.io>",
     "Michiel van Liempt <michiel@vigour.io>",
     "Renan Carvalho <renan@vigour.io>",
-    "Valerio Barrila <valerio@vigour.io>"
+    "Valerio Barrila <valerio@vigour.io>",
+    "Shawn Inder <shawn@vigour.io>"
   ],
   "license": "MIT",
   "bugs": {
@@ -33,7 +37,7 @@
   },
   "homepage": "https://github.com/vigour-io/chromecast",
   "engines": {
-    "node": ">=4"
+    "node": ">=4.1.2"
   },
   "dependencies": {
     "vigour-wrapper": "*",
@@ -49,6 +53,36 @@
         "skipInstall": true,
         "className": "io.vigour.chromecast",
         "instantiation": "new Chromecast(this, webview)"
+      }
+    },
+    "native": {
+      "platforms": {
+        "ios": {
+          "productName": "Plugin Chromecast",
+          "organizationName": "Vigour",
+          "organizationIdentifier": "io.vigour.chromecast",
+          "buildNumber": "1",
+          "appIndexPath": "build.html",
+          "NSAllowsArbitraryLoads": true,
+          "assets": {
+            "build.html": true,
+            "build.js": true,
+            "build.css": true
+          }
+        },
+        "android": {
+          "productName": "Chromecast Example",
+          "applicationId": "io.vigour.chromecast",
+          "appIndexPath": "build.html",
+          "keystoreFile": "example.keystore",
+          "keystorePassword": "shmexample",
+          "keystoreAlias": "blabla",
+          "assets": {
+            "build.html": true,
+            "build.js": true,
+            "build.css": true
+          }
+        }
       }
     }
   },
