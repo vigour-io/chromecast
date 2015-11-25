@@ -1,33 +1,18 @@
 'use strict'
-var mockBridge = require('../../dev/bridge')
+var bridge = require('../../dev/bridge')
 var nativeSender = require('../../lib/native')
+var shared = require('../../lib/shared')
 var Plugin = require('vigour-wrapper/lib/bridge/plugin')
-
-var ChromeCastPlugin = new Plugin({
-  key: 'ChromeCast',
-  session: {
-    val: false,
-    id: false
-  },
-  pluginReady: false,
-  inject: nativeSender,
-  devices: false
-}).Constructor
 
 describe('Native Plugin', function () {
   var plugin
-  var bridge = window.vigour.native.bridge
 
   it('should be able to create a plugin instance', function (done) {
-    plugin = new ChromeCastPlugin({
-      key: 'ChromeCast',
-      properties: {
-        bridge: {
-          val: mockBridge
-        }
-      }
+    plugin = new Plugin({
+      inject: [shared, nativeSender]
     })
-    plugin.on('ready', () => {
+    plugin.ready.on('value', () => {
+      expect(plugin.ready.val).to.be.true
       done()
     })
     plugin.val = 'myAppId'
