@@ -7,9 +7,9 @@
     "start": "gaston",
     "test": "gaston test -r browser",
     "build": "gaston build -s ./example/index.js -o ./ -i",
-    "ios": "npm run build && vNative build --native '{\"selectedPlatforms\":\"ios\"}'",
-    "android": "npm run build && vNative build --native '{\"selectedPlatforms\":\"android\"}'",
-    "all": "npm run build && vNative build"
+    "ios": "npm run build && wrapper build --native.selectedPlatforms ios",
+    "android": "npm run build && wrapper build --native.selectedPlatforms android",
+    "all": "npm run build && wrapper build"
   },
   "repository": {
     "type": "git",
