@@ -40,8 +40,9 @@
     "node": ">=4.1.2"
   },
   "dependencies": {
-    "vigour-wrapper": "*",
-    "vigour-ua": "*"
+    "vigour-ua": "~0.0.1",
+    "vigour-js": "~0.3.0",
+    "vigour-wrapper": "~2.0.7"
   },
   "devDependencies": {
     "bluebird": "^3.0.5",
