@@ -1,8 +1,8 @@
 'use strict'
-var bridge = require('../../dev/bridge')
-var nativeSender = require('../../lib/native')
-var shared = require('../../lib/shared')
 var Plugin = require('vigour-wrapper/lib/bridge/plugin')
+var nativeSender = require('../../lib/native')
+var bridge = require('../../dev/bridge')
+var shared = require('../../lib/shared')
 
 describe('Native Plugin', function () {
   var plugin
