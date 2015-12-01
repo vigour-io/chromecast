@@ -3,7 +3,7 @@ var bridge = require('vigour-wrapper/lib/bridge')
 var mockbridge = window.vigour.native.bridge
 
 var mockMethods = {
-  init (data) {
+  init (opt, cb) {
     setTimeout(() => {
       // setup plugin and send ready
       mockbridge.ready(null, true, 'chromecast')
@@ -28,10 +28,11 @@ var mockMethods = {
     })
   }
 }
+
 bridge.define({
-  send: function (pluginId, fnName, opts, cb) {
-    return mockMethods[fnName](opts, cb)
+  send (pluginId, fnName, opts, cb) {
+    mockMethods[fnName](opts, cb)
   }
 })
 
-module.exports = bridge
+exports.inject = require('../../lib/platform/native')
