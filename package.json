@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "bluebird": "^3.0.5",
-    "vigour-element": "0.0.3",
+    "vigour-element": "~0.2.1",
     "gaston": "~0.28.10",
     "husky": "^0.10.2",
     "standard": "^5.4.1"
