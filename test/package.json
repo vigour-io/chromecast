@@ -1,5 +1,5 @@
 {
-  "name": "chromecast-tests",
+  "name": "vigour-chromecast-tests",
   "dependencies": {
     "vigour-chromecast": "../"
   },
@@ -18,9 +18,9 @@
       "debug": true,
       "platforms": {
         "ios": {
-          "productName": "Facebook Tests",
+          "productName": "Chromecast Tests",
           "organizationName": "Vigour",
-          "organizationIdentifier": "io.vigour.facebook",
+          "organizationIdentifier": "io.vigour.chromecast",
           "buildNumber": "1",
           "appIndexPath": "build.html",
           "NSAllowsArbitraryLoads": true,
@@ -35,14 +35,10 @@
         "android": {
           "debug": true,
           "run": true,
-          "productName": "Facebook Tests",
-          "applicationId": "io.vigour.facebook",
+          "productName": "Chromecast Tests",
+          "applicationId": "io.vigour.chromecast",
           "appIndexPath": "build.html",
           "splashDuration": "0",
-          "strings": {
-            "facebook_app_id": "1523994961255055"
-
-          },
           "assets": {
             "build.html": true,
             "build.js": true,
@@ -56,6 +52,7 @@
   },
   "standard": {
     "globals": [
+      "alert",
       "describe",
       "it",
       "expect",

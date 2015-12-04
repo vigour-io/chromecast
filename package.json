@@ -4,12 +4,15 @@
   "description": "Everything needed for Chromecast sender apps",
   "main": "lib/index.js",
   "scripts": {
-    "start": "gaston",
-    "test": "gaston test -r browser",
-    "build": "gaston build -s ./example/index.js -o ./ -i",
+    "test": "./node_modules/.bin/gaston test -r browser",
+    "build": "cd example && ../node_modules/.bin/gaston build -s index.js -o ./ -i",
+    "ios-test": "cd test && ../node_modules/.bin/gaston bundle -t -s manual/index.js -o . -i && wrapper build --native.selectedPlatforms ios",
     "ios": "npm run build && wrapper build --native.selectedPlatforms ios",
+    "android-test": "cd test && ../node_modules/.bin/gaston bundle -t -s manual/index.js -o . -i && wrapper build --native.selectedPlatforms android",
     "android": "npm run build && wrapper build --native.selectedPlatforms android",
-    "all": "npm run build && wrapper build"
+    "all": "npm run build && wrapper build",
+    "prepush": "./node_modules/.bin/standard lib/**/*.js",
+    "postinstall": "./makelinks.sh vigour-chromecast"
   },
   "repository": {
     "type": "git",
@@ -40,13 +43,16 @@
     "node": ">=4.1.2"
   },
   "dependencies": {
-    "vigour-ua": "~0.0.1",
-    "vigour-js": "~0.3.0",
-    "vigour-wrapper": "~2.0.7"
+    "vigour-js": "~0.3.8",
+    "vigour-ua": "~0.0.3",
+    "vigour-wrapper": "~2.1.3"
   },
   "devDependencies": {
     "bluebird": "^3.0.5",
-    "vigour-element": "0.0.3"
+    "vigour-element": "~0.2.1",
+    "gaston": "~0.28.10",
+    "husky": "^0.10.2",
+    "standard": "^5.4.1"
   },
   "vigour": {
     "plugin": {
