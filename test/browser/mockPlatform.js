@@ -23,9 +23,17 @@ exports.platform = {
     disconnect: {
       chromecast (done) {
         setTimeout(() => {
-          this.parent.session.id.val = false
-          done()
-        }, 10)
+          this.emit('stoppedCasting')
+        })
+      }
+    },
+    stoppedCasting: {
+      condition (data, done, event) {
+        this.parent.session.set({
+          val: false,
+          id: false
+        }, event)
+        done()
       }
     }
   }
