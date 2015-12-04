@@ -1,0 +1,67 @@
+{
+  "name": "vigour-chromecast-tests",
+  "dependencies": {
+    "vigour-chromecast": "../"
+  },
+  "gaston": {
+    "package": true
+  },
+  "vigour": {
+    "chromecast": {
+      "appId": "default",
+      "script": {
+        "src": "https://www.gstatic.com/cv/js/sender/v1/cast_sender.js",
+        "id": "chromecast-script"
+      }
+    },
+    "native": {
+      "debug": true,
+      "platforms": {
+        "ios": {
+          "productName": "Chromecast Tests",
+          "organizationName": "Vigour",
+          "organizationIdentifier": "io.vigour.chromecast",
+          "buildNumber": "1",
+          "appIndexPath": "build.html",
+          "NSAllowsArbitraryLoads": true,
+          "assets": {
+            "build.html": true,
+            "build.js": true,
+            "build.css": true,
+            "mocha.js": true,
+            "mocha.css": true
+          }
+        },
+        "android": {
+          "debug": true,
+          "run": true,
+          "productName": "Chromecast Tests",
+          "applicationId": "io.vigour.chromecast",
+          "appIndexPath": "build.html",
+          "splashDuration": "0",
+          "assets": {
+            "build.html": true,
+            "build.js": true,
+            "build.css": true,
+            "mocha.js": true,
+            "mocha.css": true
+          }
+        }
+      }
+    }
+  },
+  "standard": {
+    "globals": [
+      "alert",
+      "describe",
+      "it",
+      "expect",
+      "before",
+      "after",
+      "beforeEach",
+      "afterEach",
+      "sinon",
+      "FB"
+    ]
+  }
+}
