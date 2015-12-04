@@ -3,10 +3,12 @@ var tests = require('../tests')
 
 describe('Chromecast', function () {
   describe('Mock Plugin Tests', function () {
-    tests(require('./mock'))
+    tests(require('./mockPlatform'))
   })
 
   describe('Mock Bridge Tests', function () {
-    tests(require('./bridge'))
+    var nativePlatform = require('../../lib/platform/native')
+    require('./mockBridge')
+    tests(nativePlatform)
   })
 })
