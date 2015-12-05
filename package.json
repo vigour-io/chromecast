@@ -43,7 +43,6 @@
     "node": ">=4.1.2"
   },
   "dependencies": {
-    "vigour-js": "~0.3.8",
     "vigour-ua": "~0.0.3",
     "vigour-wrapper": "~2.2.0"
   },
