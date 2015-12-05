@@ -1,5 +1,5 @@
 'use strict'
-module.exports = function (inject) {
+module.exports = function (inject, type) {
   var chromecast
 
   it('require chromecast', function () {
