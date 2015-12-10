@@ -1,10 +1,10 @@
 {
   "name": "vigour-chromecast",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Everything needed for Chromecast sender apps",
   "main": "lib/index.js",
   "scripts": {
-    "test": "./node_modules/.bin/gaston test -r browser",
+    "test": "gaston test -r browser",
     "build": "cd example && ../node_modules/.bin/gaston build -s index.js -o ./ -i",
     "ios-test": "cd test && ../node_modules/.bin/gaston bundle -t -s manual/index.js -o . -i && wrapper build --native.selectedPlatforms ios",
     "ios": "npm run build && wrapper build --native.selectedPlatforms ios",
@@ -43,6 +43,7 @@
     "node": ">=4.1.2"
   },
   "dependencies": {
+    "vigour-env": "^1.0.9",
     "vigour-ua": "~0.0.3",
     "vigour-wrapper": "~2.2.0"
   },
