@@ -1,0 +1,2 @@
+include ':example'
+include ':plugin-chromecast'

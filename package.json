@@ -52,7 +52,11 @@
       "android": {
         "skipInstall": true,
         "className": "io.vigour.chromecast",
-        "instantiation": "new Chromecast(this, webview)"
+        "instantiation": "new Chromecast(this, webview)",
+        "meta_data": {
+          "name": "com.google.android.gms.version",
+          "value": "@integer/google_play_services_version"
+        }
       }
     },
     "native": {
