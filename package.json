@@ -4,7 +4,7 @@
   "description": "Everything needed for Chromecast sender apps",
   "main": "lib/index.js",
   "scripts": {
-    "test": "gaston test -r browser",
+    "test": "gaston test -r browser -s test/browser/index.js",
     "build": "cd example && ../node_modules/.bin/gaston build -s index.js -o ./ -i",
     "ios-test": "cd test && ../node_modules/.bin/gaston bundle -t -s manual/index.js -o . -i && wrapper build --native.selectedPlatforms ios",
     "ios": "npm run build && wrapper build --native.selectedPlatforms ios",
