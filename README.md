@@ -2,78 +2,49 @@
 [![npm version](https://badge.fury.io/js/vigour-chromecast.svg)](https://badge.fury.io/js/vigour-chromecast)
 [![Build Status](https://travis-ci.org/vigour-io/chromecast.svg?branch=develop)](https://travis-ci.org/vigour-io/chromecast)
 
-# chromecast
-Everything needed for Chromecast sender apps
+___
 
-## Install
-`npm i vigour-chromecast`
+# Chromecase development
 
-## Updates via upstream remote
-- `git remote add skeleton git@github.com:vigour-io/plugin.git`
-- `git pull skeleton develop`
+## Native Methods
+Will be called using the bridge.send interface.
 
-## Try it out
-- `npm run ios`
-- `npm run android`
-- `npm run all`
+#### init({appId: 'theappid'})
+Called to pass the appId at runtime. Implementation is optional.
 
-## Usage
-Basic example
+##### callback expects (err)
 
-```js
-var chr = require('chromecast')
-var assert = require('assert')
+#### startCasting('adeviceid')
+Will be called to start casting to a device, telling the receiver with id `'adeviceid'` to start casting the app.
 
-// Init with appId
-chr.val = 'appId'
+##### callback expects (err)
 
-// Plugin is not ready yet
-assert.equal(chr.pluginReady.val, false)
+#### stopCasting()
 
-// Start casting (for specific device if native)
-var device = plugin.devices[deviceId]
-chr.startCasting(device) // chr.startCasting()
+Will be called to stop any session currently going on.
 
-// Stop casting for current session
-chr.stopcasting()
+##### callback expects (err)
 
-//////
-// Listening to events
-//////
-// Emitted on error
-chr.on('error', (err) => {})
-// Plugin init finished
-chr.on('ready', () => {
-  // plugin is now ready
-  assert.equal(chr.pluginReady.val, true)
-})
-// Emitted when started casting on a session
-chr.on('startedCasting', () => {
-  // web
-  assert.equal(chr.session.val, true)
-  // native
-  assert.equal(chr.session.val, device)
-  // both
-  assert.ok(chr.session.id)
-})
-// Emitted when stopped casting on a session
-chr.on('stoppedCasting', () => {
-  // web && native
-  assert.equal(chr.session.val, false)
-  assert.equal(chr.session.id, false)
-})
-//// Devices listeners
-// When a receiver (web) or a new device is available
-chr.devices.on('value', (data) => {
-  // Emitted when a new device is there, can be a device ref for native or a boolean for web
-})
-//// Session listeners
-// New session available
-chr.session.on('value')
-chr.session.id.on('value')
-```
+## Native Events
+Should be fired from the native side, using bridge.receive interface.
 
-For more detailed usage look at the [tests](test)
+#### deviceJoined 
+- payload: device object: `{id: 'deviceid', name: 'devicename'}`
 
-## Building native apps
-See [wrapper](http://github.com/vigour-io/vigour-native)
+Should fire whenever a new receiver device becomes available
+
+#### deviceLeft
+- payload: device object: `{id: 'deviceid', name: 'devicename'}`
+
+Should fire whenever a receiver device becomes unavailable
+
+#### stoppedCasting
+- payload: `none`
+
+Should fire whenever a session is interrupted but not when
+- stopCasting was called
+- deviceLeft has been fired
+
+So this is only to cover the edge case that a native interface detects a session has  stopped "out of nowhere".
+
+___
