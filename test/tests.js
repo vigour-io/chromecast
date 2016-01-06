@@ -1,5 +1,5 @@
 'use strict'
-module.exports = function (inject) {
+module.exports = function (inject, type) {
   var chromecast
 
   it('require chromecast', function () {
@@ -21,7 +21,6 @@ module.exports = function (inject) {
 
   it('initialise chromecast, with devices available', function (done) {
     this.timeout(25000)
-    console.log('--------------- initialise chromecast, with devices available')
     chromecast.available.once(function () {
       expect(chromecast.available.val).ok
       expect(chromecast.session.val).equals(false)
@@ -34,7 +33,6 @@ module.exports = function (inject) {
 
   it('connect to device', function (done) {
     this.timeout(25000)
-    console.log('--------------- connect to device')
     chromecast.session.once(function () {
       expect(chromecast.val).equals(true)
       expect(chromecast.available.val).ok
@@ -47,7 +45,6 @@ module.exports = function (inject) {
 
   it('disconnect from device', function (done) {
     this.timeout(25000)
-    console.log('--------------- disconnect from device')
     chromecast.session.once(function () {
       console.log('lals session once!')
       expect(chromecast.val).equals(true)

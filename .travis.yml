@@ -10,7 +10,6 @@ branches:
     - master
     - develop
 before_install:
-  - npm install -g gaston
   - npm install -g vigour-sentinel
 script:
   - sentinel
