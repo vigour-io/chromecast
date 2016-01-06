@@ -45,7 +45,8 @@
   "dependencies": {
     "vigour-js": "~0.3.8",
     "vigour-ua": "~0.0.3",
-    "vigour-wrapper": "~2.2.0"
+    "vigour-wrapper": "~2.2.0",
+    "vigour-env": "~1.0.9"
   },
   "devDependencies": {
     "bluebird": "^3.0.5",
