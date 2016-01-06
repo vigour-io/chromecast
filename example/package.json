@@ -1,5 +1,5 @@
 {
-  "name": "chromecast example app",
+  "name": "chromecastexampleapp",
   "dependencies": {
   },
   "gaston": {
@@ -20,7 +20,7 @@
       "debug": true,
       "platforms": {
         "ios": {
-          "productName": "chromecast example app",
+          "productName": "chromecastexampleapp",
           "organizationName": "Vigour",
           "organizationIdentifier": "io.vigour.chromecastExample",
           "buildNumber": "1",
@@ -35,7 +35,7 @@
         "android": {
           "debug": true,
           "run": true,
-          "productName": "chromecast example app",
+          "productName": "chromecastexampleapp",
           "applicationId": "io.vigour.chromecastExample",
           "appIndexPath": "build.html",
           "splashDuration": "0",

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "gaston test -r browser -s test/browser/index.js",
     "build": "cd example && gaston build -s index.js -o ./ -i",
-    "ios-test": "cd example && gaston bundle -t -s index.js -o . -i && wrapper build --native.selectedPlatforms ios",
+    "ios-test": "cd example && gaston build -s index.js -o . -i && wrapper build --native.selectedPlatforms ios",
     "ios": "npm run build && wrapper build --native.selectedPlatforms ios",
     "android-test": "cd test && ../node_modules/.bin/gaston bundle -t -s manual/index.js -o . -i && wrapper build --native.selectedPlatforms android",
     "android": "npm run build && wrapper build --native.selectedPlatforms android",
