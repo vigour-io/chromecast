@@ -59,8 +59,8 @@
     "plugin": {
       "android": {
         "skipInstall": true,
-        "className": "io.vigour.chromecast",
-        "instantiation": "new Chromecast(this, webview)"
+        "className": "io.vigour.plugin.chromecast",
+        "instantiation": "new Chromecast(this)"
       }
     },
     "native": {

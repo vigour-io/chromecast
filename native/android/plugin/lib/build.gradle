@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 21
+        targetSdkVersion 23
         versionCode 1
         versionName "0.1"
     }
@@ -23,8 +23,11 @@ android {
 
 dependencies {
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
-    compile 'io.vigour:plugin-core:0.4.1'
-    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'io.vigour:plugin-core:0.6.4'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.fasterxml.jackson.jr:jackson-jr-objects:2.6.3'
+    compile 'com.android.support:mediarouter-v7:23.1.1'
+    compile 'com.google.android.gms:play-services:8.4.0'
 }
 
 task androidJavadocs(type: Javadoc) {
@@ -51,10 +54,10 @@ ext {
     bintrayName = '...'
 
     publishedGroupId = 'io.vigour'
-    libraryName = 'Plugin Name'
-    artifact = 'plugin-name'
+    libraryName = 'Chromecast'
+    artifact = 'chromecast'
 
-    libraryDescription = 'plugin description'
+    libraryDescription = 'Chromecast plugin for the Vigour platform'
 
     siteUrl = 'https://github.com/vigour-io/plugin'
     gitUrl = 'https://github.com/vigour-io/plugin.git'
@@ -62,7 +65,7 @@ ext {
     libraryVersion = '0.1'
 
     developerId = 'vigour'
-    developerName = 'Michiel van Liempt'
+    developerName = 'Thomas Vervest'
     developerEmail = 'dev@vigour.io'
 
     licenseName = 'The MIT License'
