@@ -57,7 +57,7 @@ if (label === 'web') { // ---------- example app for chrome browser
         text: 'Stop casting',
         on: {
           click () {
-            console.log('stop casting!')
+            console.log('stop casting! chr.session.val?', chr.session.val)
             chr.session.val = false
           }
         }
@@ -98,8 +98,8 @@ if (label === 'web') { // ---------- example app for chrome browser
         text: 'Stop casting',
         on: {
           click () {
-            console.log('stop casting!')
-            chr.session.val = false
+            console.log('stop casting! chr.session.val?', chr.session.val)
+            chr.session.val = 0
           }
         }
       }

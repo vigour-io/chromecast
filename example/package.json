@@ -9,6 +9,9 @@
     }
   },
   "vigour": {
+    "env": {
+      "isNative": true
+    },
     "chromecast": {
       "appId": "default",
       "script": {
