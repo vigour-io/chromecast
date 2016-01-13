@@ -8,7 +8,7 @@
     "build": "cd example && gaston build -s index.js -o ./ -i",
     "ios-test": "cd example && gaston build -x -s index.js -o . -i && wrapper build --native.selectedPlatforms ios",
     "ios": "npm run build && wrapper build --native.selectedPlatforms ios",
-    "android-test": "cd test && ../node_modules/.bin/gaston bundle -t -s manual/index.js -o . -i && wrapper build --native.selectedPlatforms android",
+    "android-test": "cd example && ../node_modules/.bin/gaston bundle -t -s index.js -o . -i && wrapper build --native.selectedPlatforms android",
     "android": "npm run build && wrapper build --native.selectedPlatforms android",
     "all": "npm run build && wrapper build",
     "prepush": "./node_modules/.bin/standard lib/**/*.js",
@@ -43,6 +43,8 @@
     "node": ">=4.1.2"
   },
   "dependencies": {
+    "gaston": "^0.29.8",
+    "npmlog": "^2.0.0",
     "vigour-config": "0.0.7",
     "vigour-env": "^1.0.9",
     "vigour-ua": "~0.0.3",
@@ -50,10 +52,11 @@
   },
   "devDependencies": {
     "bluebird": "^3.0.5",
-    "vigour-element": "~0.2.1",
-    "gaston": "~0.28.10",
+    "gaston": "~0.29.7",
     "husky": "^0.10.2",
-    "standard": "^5.4.1"
+    "npmlog": "^2.0.0",
+    "standard": "^5.4.1",
+    "vigour-element": "~0.2.1"
   },
   "vigour": {
     "plugin": {
