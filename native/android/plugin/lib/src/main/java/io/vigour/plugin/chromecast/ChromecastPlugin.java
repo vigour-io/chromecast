@@ -2,7 +2,10 @@ package io.vigour.plugin.chromecast;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.v7.media.MediaControlIntent;
 import android.support.v7.media.MediaRouteSelector;
 import android.support.v7.media.MediaRouter;
 import android.support.v7.media.MediaRouter.RouteInfo;
@@ -21,10 +24,13 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.vigour.nativewrapper.plugin.core.ActivityLifecycleListener;
 import io.vigour.nativewrapper.plugin.core.Plugin;
+import rx.Observable;
+import rx.Subscriber;
 
 import static com.google.android.gms.cast.Cast.CastApi;
 
@@ -63,14 +69,15 @@ public class ChromecastPlugin extends Plugin implements ActivityLifecycleListene
 	}
 
 	private final Context _context;
+	private final Handler _mainHandler = new Handler(Looper.getMainLooper());
 	private final Map<String, MediaRouter.RouteInfo> _activeRoutes = new HashMap<>();
 	private final MediaRouter _mediaRouter;
 	private MediaRouteSelector _mediaRouteSelector;
 	private MediaRouter.Callback _mediaRouterCallback;
 	private PluginStatus _status = PluginStatus.NEW;
 	private boolean _isPendingCast = false;
-	private String _appId;
 	private GoogleApiClient _apiClient;
+	private String _appId;
 
 	public ChromecastPlugin(@NonNull final Context context) {
 		super(NAME);
@@ -78,19 +85,65 @@ public class ChromecastPlugin extends Plugin implements ActivityLifecycleListene
 		_mediaRouter = MediaRouter.getInstance(_context);
 	}
 
-	public void init(@NonNull final DeferredMap settings) {
+	public Observable<Void> init(@NonNull final DeferredMap settings) {
 		if (_status != PluginStatus.NEW) {
-			throw new IllegalStateException("init should only be called once");
+			return Observable.error(new IllegalStateException("init should only be called once"));
 		}
 
 		_appId = (String) settings.get("appId");
+		final String category;
+		if ("default".equals(_appId)) {
+			category = CastMediaControlIntent.categoryForRemotePlayback();
+		} else {
+			category = CastMediaControlIntent.categoryForRemotePlayback(_appId);
+		}
 
 		_mediaRouteSelector = new MediaRouteSelector.Builder()
-				.addControlCategory(CastMediaControlIntent.categoryForRemotePlayback(_appId))
-				//.addControlCategory(CastMediaControlIntent.categoryForRemotePlayback(CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID))
+				.addControlCategory(category)
+				.addControlCategory(MediaControlIntent.CATEGORY_LIVE_VIDEO)
 				.build();
 
-		_status = PluginStatus.READY;
+		_mediaRouterCallback = new MediaRouter.Callback() {
+			@Override
+			public void onRouteAdded(MediaRouter router, MediaRouter.RouteInfo route) {
+				ChromecastPlugin.this.onRouteAdded(route);
+			}
+
+			@Override
+			public void onRouteRemoved(MediaRouter router, MediaRouter.RouteInfo route) {
+				ChromecastPlugin.this.onRouteRemoved(route);
+			}
+
+			//TODO: check with marcus on how to handle route changes
+			/*
+			@Override
+			public void onRouteChanged(MediaRouter router, MediaRouter.RouteInfo route) {
+				_plugin.sendDeviceEvent(DeviceEvent.DEVICE_JOINED, route.getId(), route.getName());
+				_plugin.sendDeviceEvent(DeviceEvent.DEVICE_LEFT, route.getId(), route.getName());
+			}
+			*/
+		};
+
+		return Observable.create(new Observable.OnSubscribe<Void>() {
+			@Override
+			public void call(final Subscriber<? super Void> subscriber) {
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						_mediaRouter.addCallback(_mediaRouteSelector, _mediaRouterCallback,
+								MediaRouter.CALLBACK_FLAG_REQUEST_DISCOVERY);
+
+						_status = PluginStatus.READY;
+
+						subscriber.onNext(null);
+					}
+				});
+			}
+		});
+	}
+
+	private void runOnUiThread(final Runnable r) {
+		_mainHandler.post(r);
 	}
 
 	private void connectChannels() {
@@ -104,22 +157,28 @@ public class ChromecastPlugin extends Plugin implements ActivityLifecycleListene
 		}
 	}
 
-	public void startCasting(@NonNull final String deviceId) {
+	public Observable<Void> startCasting(@NonNull final String deviceId) {
 		if (!_activeRoutes.containsKey(deviceId)) {
-			throw new IllegalArgumentException(ERROR_UNKNOWN_DEVICE);
+			return Observable.error(new IllegalArgumentException(ERROR_UNKNOWN_DEVICE));
 		}
 
 		if (isCasting()) {
-			throw new IllegalStateException(ERROR_ALREADY_CASTING);
+			return Observable.error(new IllegalStateException(ERROR_ALREADY_CASTING));
 		}
 
-		connectApiClient(_activeRoutes.get(deviceId));
+		for (final RouteInfo route : _mediaRouter.getRoutes()) {
+			if (route.getId().equals(deviceId)) {
+				return connectApiClient(route);
+			}
+		}
+
+		return Observable.error(new IllegalArgumentException(ERROR_UNKNOWN_DEVICE));
 	}
 
-	private void connectApiClient(@NonNull final RouteInfo route) {
+	private Observable<Void> connectApiClient(@NonNull final RouteInfo route) {
 		final CastDevice castDevice = CastDevice.getFromBundle(route.getExtras());
 		if (null == castDevice) {
-			return;
+			return Observable.error(new IllegalArgumentException(ERROR_UNKNOWN_DEVICE));
 		}
 
 		final Cast.Listener listener = new Cast.Listener() {
@@ -167,6 +226,7 @@ public class ChromecastPlugin extends Plugin implements ActivityLifecycleListene
 
 		_apiClient.connect();
 		_status = PluginStatus.PENDING_CONNECTION;
+		return null;
 	}
 
 	private void launchApplication() {
@@ -323,28 +383,6 @@ public class ChromecastPlugin extends Plugin implements ActivityLifecycleListene
 
 	@Override
 	public void onStart() {
-		_mediaRouterCallback = new MediaRouter.Callback() {
-			@Override
-			public void onRouteAdded(MediaRouter router, MediaRouter.RouteInfo route) {
-				ChromecastPlugin.this.onRouteAdded(route);
-			}
-
-			@Override
-			public void onRouteRemoved(MediaRouter router, MediaRouter.RouteInfo route) {
-				ChromecastPlugin.this.onRouteRemoved(route);
-			}
-
-			//TODO: check with marcus on how to handle route changes
-			/*
-			@Override
-			public void onRouteChanged(MediaRouter router, MediaRouter.RouteInfo route) {
-				_plugin.sendDeviceEvent(DeviceEvent.DEVICE_JOINED, route.getId(), route.getName());
-				_plugin.sendDeviceEvent(DeviceEvent.DEVICE_LEFT, route.getId(), route.getName());
-			}
-			*/
-		};
-		_mediaRouter.addCallback(_mediaRouteSelector, _mediaRouterCallback,
-				MediaRouter.CALLBACK_FLAG_REQUEST_DISCOVERY);
 	}
 
 	@Override
