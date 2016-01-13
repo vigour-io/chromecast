@@ -46,17 +46,17 @@
     "gaston": "^0.29.8",
     "npmlog": "^2.0.0",
     "vigour-config": "0.0.7",
-    "vigour-env": "^1.0.9",
-    "vigour-ua": "~0.0.3",
-    "vigour-wrapper": "~2.2.0"
+    "vigour-env": "^1.0.15",
+    "vigour-ua": "0.0.5",
+    "vigour-wrapper": "^2.2.6"
   },
   "devDependencies": {
-    "bluebird": "^3.0.5",
-    "gaston": "~0.29.7",
+    "bluebird": "^3.1.1",
+    "gaston": "^0.29.8",
     "husky": "^0.10.2",
     "npmlog": "^2.0.0",
     "standard": "^5.4.1",
-    "vigour-element": "~0.2.1"
+    "vigour-element": "^0.2.3"
   },
   "vigour": {
     "plugin": {
