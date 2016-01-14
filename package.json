@@ -48,7 +48,7 @@
     "vigour-config": "0.0.7",
     "vigour-env": "^1.0.15",
     "vigour-ua": "0.0.5",
-    "vigour-wrapper": "^2.2.6"
+    "vigour-wrapper": "^2.2.8"
   },
   "devDependencies": {
     "bluebird": "^3.1.1",
@@ -63,7 +63,7 @@
       "android": {
         "skipInstall": true,
         "className": "io.vigour.plugin.chromecast",
-        "instantiation": "new Chromecast(this)"
+        "instantiation": "new ChromecastPlugin(this)"
       }
     },
     "native": {

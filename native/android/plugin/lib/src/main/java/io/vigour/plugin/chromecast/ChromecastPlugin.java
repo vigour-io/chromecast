@@ -23,14 +23,19 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import io.vigour.nativewrapper.plugin.core.ActivityLifecycleListener;
 import io.vigour.nativewrapper.plugin.core.Plugin;
+import io.vigour.nativewrapper.plugin.core.PluginFunction;
 import rx.Observable;
 import rx.Subscriber;
+import rx.functions.Action0;
+import rx.functions.Action1;
+import rx.functions.Func1;
 
 import static com.google.android.gms.cast.Cast.CastApi;
 
@@ -39,7 +44,7 @@ public class ChromecastPlugin extends Plugin implements ActivityLifecycleListene
 	private static final String TAG = ChromecastPlugin.class.getName();
 
 	public static final String ERROR_UNKNOWN_DEVICE = "unknown device";
-	public static final String ERROR_ALREADY_CASTING = "already casting to a device";
+	public static final String ERROR_RECEIVER_APP_ERROR = "launching receiver app failed";
 	public static final String EVENT_STOPPED_CASTING = "stoppedCasting";
 
 	enum DeviceEvent {
@@ -77,6 +82,7 @@ public class ChromecastPlugin extends Plugin implements ActivityLifecycleListene
 	private PluginStatus _status = PluginStatus.NEW;
 	private boolean _isPendingCast = false;
 	private GoogleApiClient _apiClient;
+	private String _sessionId;
 	private String _appId;
 
 	public ChromecastPlugin(@NonNull final Context context) {
@@ -90,39 +96,67 @@ public class ChromecastPlugin extends Plugin implements ActivityLifecycleListene
 			return Observable.error(new IllegalStateException("init should only be called once"));
 		}
 
-		_appId = (String) settings.get("appId");
-		final String category;
-		if ("default".equals(_appId)) {
-			category = CastMediaControlIntent.categoryForRemotePlayback();
+		final String appId = (String) settings.get("appId");
+		if ("default".equals(appId)) {
+			_appId = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID;
 		} else {
-			category = CastMediaControlIntent.categoryForRemotePlayback(_appId);
+			_appId = appId;
 		}
 
 		_mediaRouteSelector = new MediaRouteSelector.Builder()
-				.addControlCategory(category)
-				.addControlCategory(MediaControlIntent.CATEGORY_LIVE_VIDEO)
+				.addControlCategory(CastMediaControlIntent.categoryForRemotePlayback(_appId))
 				.build();
 
 		_mediaRouterCallback = new MediaRouter.Callback() {
 			@Override
 			public void onRouteAdded(MediaRouter router, MediaRouter.RouteInfo route) {
-				ChromecastPlugin.this.onRouteAdded(route);
+				final String routeId = route.getId();
+
+				if (!_activeRoutes.containsKey(routeId)) {
+					_activeRoutes.put(routeId, route);
+					sendDeviceEvent(DeviceEvent.DEVICE_JOINED, routeId, route.getName());
+				}
 			}
 
 			@Override
 			public void onRouteRemoved(MediaRouter router, MediaRouter.RouteInfo route) {
-				ChromecastPlugin.this.onRouteRemoved(route);
-			}
+				final String routeId = route.getId();
 
-			//TODO: check with marcus on how to handle route changes
-			/*
-			@Override
-			public void onRouteChanged(MediaRouter router, MediaRouter.RouteInfo route) {
-				_plugin.sendDeviceEvent(DeviceEvent.DEVICE_JOINED, route.getId(), route.getName());
-				_plugin.sendDeviceEvent(DeviceEvent.DEVICE_LEFT, route.getId(), route.getName());
+				if (_activeRoutes.containsKey(routeId)) {
+					_activeRoutes.remove(routeId);
+					sendDeviceEvent(DeviceEvent.DEVICE_LEFT, routeId, route.getName());
+				}
 			}
-			*/
 		};
+
+		return startListening();
+	}
+
+	private Observable<Void> stopListening() {
+		if (null == _mediaRouterCallback) {
+			return Observable.empty();
+		}
+
+		return Observable.create(new Observable.OnSubscribe<Void>() {
+			@Override
+			public void call(final Subscriber<? super Void> subscriber) {
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						_mediaRouter.removeCallback(_mediaRouterCallback);
+						_mediaRouterCallback = null;
+
+						subscriber.onNext(null);
+					}
+				});
+			}
+		});
+	}
+
+	private Observable<Void> startListening() {
+		if (null == _mediaRouteSelector) {
+			return Observable.empty();
+		}
 
 		return Observable.create(new Observable.OnSubscribe<Void>() {
 			@Override
@@ -151,34 +185,70 @@ public class ChromecastPlugin extends Plugin implements ActivityLifecycleListene
 	}
 
 	private void teardown() {
-		if (null != _apiClient) {
+		if (_apiClient != null && _apiClient.isConnected() || _apiClient.isConnecting()) {
+			//try {
+				Cast.CastApi.stopApplication(_apiClient, _sessionId);
+				/*
+				if (mHelloWorldChannel != null) {
+					Cast.CastApi.removeMessageReceivedCallbacks(
+							mApiClient,
+							mHelloWorldChannel.getNamespace());
+					mHelloWorldChannel = null;
+				}
+			} catch (IOException e) {
+				Log.e(TAG, "Exception while removing channel", e);
+				sendError(e.getMessage());
+			}
+			*/
 			_apiClient.disconnect();
 			_apiClient = null;
 		}
+
+		_sessionId = null;
 	}
 
 	public Observable<Void> startCasting(@NonNull final String deviceId) {
-		if (!_activeRoutes.containsKey(deviceId)) {
-			return Observable.error(new IllegalArgumentException(ERROR_UNKNOWN_DEVICE));
-		}
+		return Observable.create(new Observable.OnSubscribe<Void>() {
+			@Override
+			public void call(final Subscriber<? super Void> subscriber) {
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						if (!_activeRoutes.containsKey(deviceId)) {
+							subscriber.onError(new IllegalArgumentException(ERROR_UNKNOWN_DEVICE));
+							return;
+						}
 
-		if (isCasting()) {
-			return Observable.error(new IllegalStateException(ERROR_ALREADY_CASTING));
-		}
+						if (isCasting()) {
+							stopCasting().flatMap(new Func1<Void, Observable<Void>>() {
+								@Override
+								public Observable<Void> call(Void aVoid) {
+									return startCasting(deviceId);
+								}
+							}).subscribe(subscriber);
+							return;
+						}
 
-		for (final RouteInfo route : _mediaRouter.getRoutes()) {
-			if (route.getId().equals(deviceId)) {
-				return connectApiClient(route);
+						for (final RouteInfo route : _mediaRouter.getRoutes()) {
+							if (route.getId().equals(deviceId)) {
+								connectApiClient(subscriber, route);
+								return;
+							}
+						}
+
+						subscriber.onError(new IllegalArgumentException(ERROR_UNKNOWN_DEVICE));
+					}
+				});
 			}
-		}
-
-		return Observable.error(new IllegalArgumentException(ERROR_UNKNOWN_DEVICE));
+		});
 	}
 
-	private Observable<Void> connectApiClient(@NonNull final RouteInfo route) {
+	private void connectApiClient(@NonNull final Subscriber<? super Void> subscriber,
+	                              @NonNull final RouteInfo route) {
 		final CastDevice castDevice = CastDevice.getFromBundle(route.getExtras());
 		if (null == castDevice) {
-			return Observable.error(new IllegalArgumentException(ERROR_UNKNOWN_DEVICE));
+			subscriber.onError(new IllegalArgumentException(ERROR_UNKNOWN_DEVICE));
+			return;
 		}
 
 		final Cast.Listener listener = new Cast.Listener() {
@@ -200,11 +270,7 @@ public class ChromecastPlugin extends Plugin implements ActivityLifecycleListene
 			.addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
 				@Override
 				public void onConnected(Bundle bundle) {
-					if (PluginStatus.SUSPENDED == _status) {
-						connectChannels();
-					} else {
-						launchApplication();
-					}
+					launchApplication(subscriber);
 				}
 
 				@Override
@@ -226,10 +292,9 @@ public class ChromecastPlugin extends Plugin implements ActivityLifecycleListene
 
 		_apiClient.connect();
 		_status = PluginStatus.PENDING_CONNECTION;
-		return null;
 	}
 
-	private void launchApplication() {
+	private void launchApplication(@NonNull final Subscriber<? super Void> subscriber) {
 		_status = PluginStatus.LAUNCHING_APP;
 		try {
 			CastApi.launchApplication(_apiClient, _appId)
@@ -238,16 +303,17 @@ public class ChromecastPlugin extends Plugin implements ActivityLifecycleListene
 						public void onResult(@NonNull Cast.ApplicationConnectionResult result) {
 							Status status = result.getStatus();
 							if (status.isSuccess()) {
-								_status = PluginStatus.CASTING;
 
-								/*
-								ApplicationMetadata applicationMetadata =
-										result.getApplicationMetadata();
-								String sessionId = result.getSessionId();
-								String applicationStatus = result.getApplicationStatus();
-								boolean wasLaunched = result.getWasLaunched();
-								*/
+								//CastApi.setMessageReceivedCallbacks(_apiClient, );
+
+								_sessionId = result.getSessionId();
+								final String applicationStatus = result.getApplicationStatus();
+								final ApplicationMetadata metadata = result.getApplicationMetadata();
+								_status = PluginStatus.CASTING;
+								subscriber.onNext(null);
 							} else {
+								subscriber.onError(new RuntimeException(ERROR_RECEIVER_APP_ERROR));
+
 								_status = PluginStatus.READY;
 								teardown();
 							}
@@ -255,7 +321,7 @@ public class ChromecastPlugin extends Plugin implements ActivityLifecycleListene
 					});
 		} catch (Exception e) {
 			Log.e(TAG, "Failed to launch application", e);
-			throw e;
+			subscriber.onError(e);
 		}
 	}
 
@@ -274,31 +340,24 @@ public class ChromecastPlugin extends Plugin implements ActivityLifecycleListene
 		return true;
 	}
 
-	public void stopCasting() {
+	public Observable<Void> stopCasting() {
 		if (null == _apiClient) {
-			throw new IllegalStateException("app not casting");
+			return Observable.error(new IllegalStateException("app not casting"));
 		}
 
-		_status = PluginStatus.STOPPED;
-		teardown();
-	}
-
-	public void onRouteAdded(@NonNull final MediaRouter.RouteInfo route) {
-		final String routeId = route.getId();
-
-		if (!_activeRoutes.containsKey(routeId)) {
-			_activeRoutes.put(routeId, route);
-			sendDeviceEvent(DeviceEvent.DEVICE_JOINED, routeId, route.getName());
-		}
-	}
-
-	public void onRouteRemoved(@NonNull final MediaRouter.RouteInfo route) {
-		final String routeId = route.getId();
-
-		if (_activeRoutes.containsKey(routeId)) {
-			_activeRoutes.remove(routeId);
-			sendDeviceEvent(DeviceEvent.DEVICE_LEFT, routeId, route.getName());
-		}
+		return Observable.create(new Observable.OnSubscribe<Void>() {
+			@Override
+			public void call(final Subscriber<? super Void> subscriber) {
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						_status = PluginStatus.STOPPED;
+						teardown();
+						sendEvent(EVENT_STOPPED_CASTING, null);
+					}
+				});
+			}
+		});
 	}
 
 	public void onApplicationDisconnected(int statusCode) {
@@ -383,6 +442,7 @@ public class ChromecastPlugin extends Plugin implements ActivityLifecycleListene
 
 	@Override
 	public void onStart() {
+		startListening();
 	}
 
 	@Override
@@ -391,13 +451,11 @@ public class ChromecastPlugin extends Plugin implements ActivityLifecycleListene
 
 	@Override
 	public void onResume() {
+
 	}
 
 	@Override
 	public void onStop() {
-		if (null != _mediaRouterCallback) {
-			_mediaRouter.removeCallback(_mediaRouterCallback);
-			_mediaRouterCallback = null;
-		}
+		stopListening();
 	}
 }

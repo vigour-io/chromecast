@@ -140,11 +140,13 @@ chr.on('ready', () => {
   console.log(chr.pluginReady.val)
 })
 
-chr.available.on('data', function (val) {
+chr.available.on('data', function () {
+  var val = this.val
   app.available.yesno.text.val = String(val)
 })
 
-chr.session.on('data', function (val) {
+chr.session.on('data', function () {
+  var val = this.val
   app.session.yesno.text.val = typeof val === 'object'
     ? val.serialize
       ? JSON.stringify(val.serialize())
