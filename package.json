@@ -8,7 +8,7 @@
     "build": "cd example && gaston build -s index.js -o ./ -i",
     "ios-test": "cd example && gaston build -x -s index.js -o . -i && wrapper build --native.selectedPlatforms ios",
     "ios": "npm run build && wrapper build --native.selectedPlatforms ios",
-    "android-test": "cd test && ../node_modules/.bin/gaston bundle -t -s manual/index.js -o . -i && wrapper build --native.selectedPlatforms android",
+    "android-test": "cd example && gaston build -x -s index.js -o . -i && wrapper build --native.selectedPlatforms android",
     "android": "npm run build && wrapper build --native.selectedPlatforms android",
     "all": "npm run build && wrapper build",
     "prepush": "./node_modules/.bin/standard lib/**/*.js",

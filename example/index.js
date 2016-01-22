@@ -5,16 +5,19 @@ var chr = require('../lib')
 chr.val = true
 var Element = require('vigour-element')
 
+var app = require('vigour-element/lib/app')
+
 Element.prototype.inject(
   require('vigour-element/lib/property/css'),
   require('vigour-element/lib/property/text')
 )
 
 var label = chr._platform.label.val
-var app
+
 
 if (label === 'web') { // ---------- example app for chrome browser
-  app = new Element({
+  console.log('------------- chromecast web')
+  app.set({
     node: document.body,
     topbar: {
       css: 'topbar',
@@ -65,7 +68,8 @@ if (label === 'web') { // ---------- example app for chrome browser
     }
   })
 } else { // ---------- example app for native devices
-  app = new Element({
+  console.log('-------- make example for native!')
+  app.set({
     node: document.body,
     topbar: {
       css: 'topbar',
