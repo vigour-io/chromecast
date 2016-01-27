@@ -43,24 +43,28 @@
     "node": ">=4.1.2"
   },
   "dependencies": {
+    "gaston": "^0.29.8",
+    "npmlog": "^2.0.0",
     "vigour-config": "0.0.7",
-    "vigour-env": "^1.0.9",
-    "vigour-ua": "~0.0.3",
-    "vigour-wrapper": "~2.2.0"
+    "vigour-env": "^1.0.15",
+    "vigour-ua": "0.0.5",
+    "vigour-wrapper": "^2.2.8"
   },
   "devDependencies": {
-    "bluebird": "^3.0.5",
-    "vigour-element": "~0.2.1",
-    "gaston": "~0.28.10",
+    "bluebird": "^3.1.1",
+    "gaston": "^0.29.8",
     "husky": "^0.10.2",
-    "standard": "^5.4.1"
+    "npmlog": "^2.0.0",
+    "standard": "^5.4.1",
+    "vigour-element": "^0.2.3"
   },
   "vigour": {
     "plugin": {
       "android": {
         "skipInstall": true,
-        "className": "io.vigour.chromecast",
-        "instantiation": "new Chromecast(this, webview)"
+        "className": "io.vigour.plugin.chromecast.ChromecastPlugin",
+        "instantiation": "new ChromecastPlugin(this)",
+        "library": "./native/android/plugin/lib"
       }
     },
     "native": {
