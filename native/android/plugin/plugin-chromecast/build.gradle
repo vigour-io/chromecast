@@ -1,0 +1,102 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 1
+        versionName "0.1"
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/notice.txt'
+        exclude 'DEPENDENCIES.txt'
+        exclude 'DEPENDENCIES'
+        exclude 'dependencies.txt'
+        exclude 'LICENSE.txt'
+        exclude 'LICENSE'
+        exclude 'license.txt'
+        exclude 'LGPL2.1'
+        exclude 'NOTICE.txt'
+        exclude 'NOTICE'
+        exclude 'notice.txt'
+        exclude '.readme'
+    }
+}
+
+dependencies {
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    compile 'io.vigour:plugin-core:0.6.4'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.fasterxml.jackson.jr:jackson-jr-objects:2.6.3'
+    compile 'com.android.support:mediarouter-v7:23.1.1'
+    compile 'com.google.android.gms:play-services:8.4.0'
+}
+
+task androidJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+}
+
+task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    classifier = 'javadoc'
+    from androidJavadocs.destinationDir
+}
+
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+artifacts {
+    archives androidSourcesJar
+    archives androidJavadocsJar
+}
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'plugin-chromecast'
+
+    publishedGroupId = 'io.vigour'
+    libraryName = 'Chromecast plugin'
+    artifact = 'plugin-chromecast'
+
+    libraryDescription = 'Chromecast plugin for the Vigour platform'
+
+    siteUrl = 'https://github.com/vigour-io/chromecast'
+    gitUrl = 'https://github.com/vigour-io/chromecast.git'
+
+    libraryVersion = '0.0.1'
+
+    developerId = 'vigour'
+    developerName = 'Thomas Vervest'
+    developerEmail = 'dev@vigour.io'
+
+    licenseName = 'The MIT License'
+    licenseUrl = 'http://opensource.org/licenses/mit-license.php'
+    allLicenses = ["MIT"]
+}
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: '../bintray.gradle'
