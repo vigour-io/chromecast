@@ -14,13 +14,36 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/notice.txt'
+        exclude 'DEPENDENCIES.txt'
+        exclude 'DEPENDENCIES'
+        exclude 'dependencies.txt'
+        exclude 'LICENSE.txt'
+        exclude 'LICENSE'
+        exclude 'license.txt'
+        exclude 'LGPL2.1'
+        exclude 'NOTICE.txt'
+        exclude 'NOTICE'
+        exclude 'notice.txt'
+        exclude '.readme'
     }
 }
 
 dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'io.vigour:plugin-core:+'
-    compile project(':lib')
+    compile project(':plugin-chromecast')
 }
