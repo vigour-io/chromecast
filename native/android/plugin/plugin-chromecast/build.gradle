@@ -48,11 +48,11 @@ android {
 
 dependencies {
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
-    compile 'io.vigour:plugin-core:0.6.4'
+    compile 'io.vigour:plugin-core:0.7.0'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.fasterxml.jackson.jr:jackson-jr-objects:2.6.3'
     compile 'com.android.support:mediarouter-v7:23.1.1'
-    compile 'com.google.android.gms:play-services:8.4.0'
+    compile 'com.google.android.gms:play-services-cast:8.4.0'
 }
 
 task androidJavadocs(type: Javadoc) {

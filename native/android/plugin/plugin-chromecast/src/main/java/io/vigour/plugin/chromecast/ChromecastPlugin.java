@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
-import android.support.v7.media.MediaControlIntent;
 import android.support.v7.media.MediaRouteSelector;
 import android.support.v7.media.MediaRouter;
 import android.support.v7.media.MediaRouter.RouteInfo;
@@ -23,18 +22,13 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import io.vigour.nativewrapper.plugin.core.ActivityLifecycleListener;
 import io.vigour.nativewrapper.plugin.core.Plugin;
-import io.vigour.nativewrapper.plugin.core.PluginFunction;
 import rx.Observable;
 import rx.Subscriber;
-import rx.functions.Action0;
-import rx.functions.Action1;
 import rx.functions.Func1;
 
 import static com.google.android.gms.cast.Cast.CastApi;
