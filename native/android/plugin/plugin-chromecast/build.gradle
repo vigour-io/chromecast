@@ -87,7 +87,7 @@ ext {
     siteUrl = 'https://github.com/vigour-io/chromecast'
     gitUrl = 'https://github.com/vigour-io/chromecast.git'
 
-    libraryVersion = '0.0.1'
+    libraryVersion = '0.0.2'
 
     developerId = 'vigour'
     developerName = 'Thomas Vervest'
