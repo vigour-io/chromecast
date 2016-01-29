@@ -22,10 +22,12 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
 import io.vigour.nativewrapper.plugin.core.ActivityLifecycleListener;
+import io.vigour.nativewrapper.plugin.core.BridgeEvents;
 import io.vigour.nativewrapper.plugin.core.Plugin;
 import rx.Observable;
 import rx.Subscriber;
@@ -39,6 +41,8 @@ public class ChromecastPlugin extends Plugin implements ActivityLifecycleListene
 
 	public static final String ERROR_UNKNOWN_DEVICE = "unknown device";
 	public static final String ERROR_RECEIVER_APP_ERROR = "launching receiver app failed";
+	public static final String ERROR_MISSING_ARGUMENT_DEVICEID = "missing argument: deviceId";
+
 	public static final String EVENT_STOPPED_CASTING = "stoppedCasting";
 
 	enum DeviceEvent {
@@ -201,13 +205,21 @@ public class ChromecastPlugin extends Plugin implements ActivityLifecycleListene
 		_sessionId = null;
 	}
 
-	public Observable<Void> startCasting(@NonNull final String deviceId) {
+	public Observable<Void> startCasting(@NonNull final DeferredMap arguments) {
+
 		return Observable.create(new Observable.OnSubscribe<Void>() {
 			@Override
 			public void call(final Subscriber<? super Void> subscriber) {
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
+						if (!arguments.containsKey("deviceId")) {
+							subscriber.onError(new IllegalArgumentException(ERROR_MISSING_ARGUMENT_DEVICEID));
+							return;
+						}
+
+						final String deviceId = (String) arguments.get("deviceId");
+
 						if (!_activeRoutes.containsKey(deviceId)) {
 							subscriber.onError(new IllegalArgumentException(ERROR_UNKNOWN_DEVICE));
 							return;
@@ -217,7 +229,7 @@ public class ChromecastPlugin extends Plugin implements ActivityLifecycleListene
 							stopCasting().flatMap(new Func1<Void, Observable<Void>>() {
 								@Override
 								public Observable<Void> call(Void aVoid) {
-									return startCasting(deviceId);
+									return startCasting(arguments);
 								}
 							}).subscribe(subscriber);
 							return;
@@ -430,8 +442,15 @@ public class ChromecastPlugin extends Plugin implements ActivityLifecycleListene
 	}
 
 	private void sendDeviceEvent(@NonNull DeviceEvent event, @NonNull String deviceId, @NonNull String deviceName) {
-		final String json = String.format("{\"id\":\"%s\", \"name\": \"%s\"}", deviceId, deviceName);
-		sendEvent(event.toString(), json);
+		final String result = String.format("{\"id\": \"%s\", \"name\":\"%s\"}", deviceId, deviceName);
+
+		/*
+		final Map<String, String> result = new HashMap<>();
+		result.put("id", deviceId);
+		result.put("name", deviceName);
+		*/
+
+		sendEvent(event.toString(), result);
 	}
 
 	@Override

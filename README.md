@@ -14,7 +14,7 @@ Called to pass the appId at runtime. Implementation is optional.
 
 ##### callback expects (err)
 
-#### startCasting('adeviceid')
+#### startCasting({ deviceId: 'somedeviceid' })
 Will be called to start casting to a device, telling the receiver with id `'adeviceid'` to start casting the app.
 
 ##### callback expects (err)
