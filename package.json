@@ -45,10 +45,10 @@
   "dependencies": {
     "gaston": "^0.29.8",
     "npmlog": "^2.0.0",
-    "vigour-config": "0.0.7",
-    "vigour-env": "^1.0.15",
+    "vigour-config": "~0.0.8",
+    "vigour-env": "^1.0.18",
     "vigour-ua": "0.0.5",
-    "vigour-wrapper": "^2.2.8"
+    "vigour-wrapper": "^2.2.13"
   },
   "devDependencies": {
     "bluebird": "^3.1.1",
