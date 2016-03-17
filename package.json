@@ -1,6 +1,6 @@
 {
   "name": "vigour-chromecast",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Everything needed for Chromecast sender apps",
   "main": "lib/index.js",
   "scripts": {
