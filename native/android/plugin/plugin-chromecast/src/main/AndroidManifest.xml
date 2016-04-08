@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="io.vigour.plugin.statusbar">
+          package="io.vigour.plugin.chromecast">
 
     <application android:allowBackup="true"
                  android:theme="@style/AppTheme">
