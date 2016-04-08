@@ -58,3 +58,6 @@ gradle-app.setting
 
 # Cache of project
 .gradletasknamecache
+
+# don't ignore the gradle build files
+!build.gradle
