@@ -2,7 +2,7 @@
 
 ##--------------- Proguard configuration for plugin interface ----------
 
--keep class io.vigour.plugin.chromecast.ChromecastPlugin
+-keep class io.vigour.plugin.chromecast.ChromecastPlugin { public *; }
 
 ##--------------- Proguard configuration for Gson  ----------
 # Gson uses generic type information stored in a class file when working with fields.
