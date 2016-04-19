@@ -13,7 +13,7 @@ Element.prototype.inject(
 )
 
 var label = chr._platform.label.val
-
+console.log('label is', label)
 if (label === 'web') { // ---------- example app for chrome browser
   console.log('------------- chromecast web')
   app.set({
