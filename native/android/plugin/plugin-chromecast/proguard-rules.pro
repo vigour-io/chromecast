@@ -2,7 +2,9 @@
 
 ##--------------- Proguard configuration for plugin interface ----------
 
--keep class io.vigour.plugin.chromecast.ChromecastPlugin { public *; }
+-keep class io.vigour.plugin.chromecast.ChromecastPlugin {
+    public protected *;
+}
 
 ##--------------- Proguard configuration for Gson  ----------
 # Gson uses generic type information stored in a class file when working with fields.
@@ -39,8 +41,8 @@
 
 ##--------------- Proguard configuration for Google APIs ----------
 
--keep public class com.google.android.gms.* { public *; }
--dontwarn com.google.android.gms.**
+##-keep public class com.google.android.gms.* { public *; }
+##-dontwarn com.google.android.gms.**
 
 ##--------------- Proguard configuration for classes using slf4j (like JDeferred) ----------
 

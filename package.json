@@ -1,6 +1,6 @@
 {
   "name": "vigour-chromecast",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Everything needed for Chromecast sender apps",
   "main": "lib/index.js",
   "scripts": {
@@ -45,10 +45,10 @@
   "dependencies": {
     "gaston": "^0.29.8",
     "npmlog": "^2.0.0",
-    "vigour-config": "0.0.7",
-    "vigour-env": "^1.0.15",
+    "vigour-config": "~0.0.8",
+    "vigour-env": "^1.0.18",
     "vigour-ua": "0.0.5",
-    "vigour-wrapper": "^2.2.8"
+    "vigour-wrapper-bridge": "^1.0.10"
   },
   "devDependencies": {
     "bluebird": "^3.1.1",
@@ -56,15 +56,14 @@
     "husky": "^0.10.2",
     "npmlog": "^2.0.0",
     "standard": "^5.4.1",
-    "vigour-element": "^0.2.3"
+    "vigour-element": "^0.2.3",
+    "vigour-wrapper": "^4.0.6"
   },
   "vigour": {
     "plugin": {
       "android": {
-        "skipInstall": true,
         "className": "io.vigour.plugin.chromecast.ChromecastPlugin",
-        "instantiation": "new ChromecastPlugin(this)",
-        "library": "./native/android/plugin/lib"
+        "instantiation": "new ChromecastPlugin(this)"
       }
     },
     "native": {
